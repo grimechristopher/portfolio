@@ -1,0 +1,10 @@
+:root {
+  --bg: #202022;
+  --text: #ffffff;
+}
+
+body { 
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+}
+

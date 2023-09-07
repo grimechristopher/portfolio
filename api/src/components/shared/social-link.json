@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_social_links",
+  "info": {
+    "displayName": "Social Link"
+  },
+  "options": {},
+  "attributes": {
+    "Text": {
+      "type": "string"
+    },
+    "Url": {
+      "type": "string"
+    },
+    "FontAwesomeIconClass": {
+      "type": "string"
+    }
+  }
+}

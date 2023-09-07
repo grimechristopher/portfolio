@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_bullets",
+  "info": {
+    "displayName": "Bullet",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Text": {
+      "type": "string"
+    },
+    "FontAwesomeIconClass": {
+      "type": "string"
+    },
+    "StartDate": {
+      "type": "date"
+    },
+    "showDate": {
+      "type": "boolean"
+    }
+  }
+}
