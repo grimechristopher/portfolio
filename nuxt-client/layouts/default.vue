@@ -31,6 +31,9 @@
           </div>
         </div>
       </div>
+      <div class="container-navigation">
+        <Navbar />
+      </div>
     </div>
     <slot />
   </div>
@@ -136,14 +139,21 @@ body {
 .container-fullscreen {
   height: 100dvh;
   background: var(--bg);
+
+  display: flex;
+  flex-direction: column;
+  /* margin: 0; */
+  
 }
 
 .center-xy {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100dvh;
+
   perspective: 100vw;
+  flex-grow: 1;
+  flex-basis: auto;
 }
 
 /* 
@@ -181,10 +191,6 @@ body {
 
 /* Some 'mobile second' designing */
 @media (max-width: 640px) {
-  .container-fullscreen {
-    height: 100vh;
-    /* background: burlywood; */
-  }
   #container-card {
     width: 20em;
     height: 35em;

@@ -28,7 +28,7 @@
 
 </template>
 
-<script  setup>
+<script setup>
 const { find } = useStrapi4();
 const globalResponse = await find('global', {
   populate: 'deep',
