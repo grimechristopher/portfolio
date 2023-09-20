@@ -29,11 +29,17 @@
       "component": "shared.bullet"
     },
     "SiteIcon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "Technologies": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.technologies"
     }
   }
 }

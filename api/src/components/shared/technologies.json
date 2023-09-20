@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_technologies",
+  "info": {
+    "displayName": "Technologies",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Svg": {
+      "type": "string"
+    },
+    "Color": {
+      "type": "string"
+    }
+  }
+}

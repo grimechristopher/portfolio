@@ -6,7 +6,7 @@
   },
   "options": {},
   "attributes": {
-    "Text": {
+    "Title": {
       "type": "string"
     },
     "FontAwesomeIconClass": {
@@ -17,6 +17,9 @@
     },
     "showDate": {
       "type": "boolean"
+    },
+    "Location": {
+      "type": "string"
     }
   }
 }

@@ -134,7 +134,7 @@ body {
 }
 
 .container-fullscreen {
-  height: 100vh;
+  height: 100dvh;
   background: var(--bg);
 }
 
@@ -142,7 +142,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100dvh;
   perspective: 100vw;
 }
 
@@ -162,7 +162,7 @@ body {
 .card {
   width: inherit;
   height: inherit;
-  border: solid #FFFFFF 1px;
+  /* border: solid #FFFFFF 1px; */
   border-radius: 0.25rem;
   position: absolute;
   backface-visibility: hidden;

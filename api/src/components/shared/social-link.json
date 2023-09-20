@@ -1,7 +1,8 @@
 {
   "collectionName": "components_shared_social_links",
   "info": {
-    "displayName": "Social Link"
+    "displayName": "Social Link",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -12,6 +13,16 @@
       "type": "string"
     },
     "FontAwesomeIconClass": {
+      "type": "string"
+    },
+    "IconSource": {
+      "type": "enumeration",
+      "enum": [
+        "FontAwesome",
+        "SimpleIcons"
+      ]
+    },
+    "SvgPath": {
       "type": "string"
     }
   }
