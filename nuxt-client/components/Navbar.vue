@@ -1,10 +1,10 @@
 <template>
-  <nav>
+  <nav id="navbar" ref="navbar">
     <ul>
-      <li>Portfolio</li>
+      <li></li>
       <li>About</li>
       <li>Articles</li>
-      <li>Snippets</li>
+      <li>ugh</li>
       <li>Resume</li>
     </ul>
 
@@ -18,17 +18,29 @@
   </nav>
 </template>
 
-<script>
+<script setup>
+  import { ref, onMounted } from 'vue'
+  const navbar = ref();
 
+  onMounted(() => {
+    window.addEventListener('scroll', onScroll);
+
+    initialWindowHeight = window.innerHeight;
+    currentWindowHeight = window.innerHeight;
+  })  
+  
+  function onScroll() {
+    if (window.scrollY > window.innerHeight - navbar.value.offsetHeight) {
+      navbar.value.classList.add('sticky');
+    } else {
+      navbar.value.classList.remove('sticky');
+    }
+  }
 </script>
 
 <style>
 nav {
   background: #fcfcfc;
-  
-  position: sticky;
-  top: 10px;
-  
 }
 nav ul {
   display: flex;
@@ -39,6 +51,11 @@ nav ul {
 
   font-size: 1.5rem;
   overflow: scroll;
+}
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 </style>
