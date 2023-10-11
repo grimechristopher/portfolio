@@ -2,10 +2,9 @@
   <nav id="navbar" ref="navbar">
     <ul>
       <li></li>
-      <li>About</li>
-      <li>Articles</li>
-      <li>ugh</li>
-      <li>Resume</li>
+      <li><NuxtLink :to="{ path: '/', hash: '#placeholder' }">About</NuxtLink></li>
+      <li><NuxtLink :to="{ path: '/projects', hash: '#placeholder' }">Projects</NuxtLink></li>
+      <li><NuxtLink :to="{ path: '/articles', hash: '#placeholder' }">Articles</NuxtLink></li>
     </ul>
 
     <div class="navbar-button">
@@ -24,9 +23,6 @@
 
   onMounted(() => {
     window.addEventListener('scroll', onScroll);
-
-    initialWindowHeight = window.innerHeight;
-    currentWindowHeight = window.innerHeight;
   })  
   
   function onScroll() {

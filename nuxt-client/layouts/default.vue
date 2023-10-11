@@ -31,11 +31,14 @@
           </div>
         </div>
       </div>
-      <div class="container-navigation">
+      <div id="placeholder"></div>
+      <div id="container-navigation">
         <Navbar />
       </div>
     </div>
-    <slot />
+    <main>
+      <slot />
+    </main>
   </div>
 </template>
 
@@ -187,6 +190,11 @@ body {
 #card-back {
   background-color: #F0F0FC;
   transform: rotateY(180deg);
+}
+
+#placeholder {
+  position: absolute;
+  bottom: 42px;
 }
 
 /* Some 'mobile second' designing */

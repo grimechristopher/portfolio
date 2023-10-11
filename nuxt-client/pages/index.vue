@@ -2,7 +2,6 @@
 <template>
   <div>
     Index
-
     Long
     ong
 
