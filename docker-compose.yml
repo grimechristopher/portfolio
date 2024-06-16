@@ -13,7 +13,7 @@ services:
       - server-network
     labels:
       - traefik.enable=true
-      - traefik.http.routers.portfolio.rule=Host(`www.chrisgrime.com`)
+      - traefik.http.routers.portfolio.rule=Host(`www.chrisgrime.com`) || Host(`chrisgrime.com`)
       - traefik.http.routers.portfolio.entrypoints=websecure
       - traefik.http.routers.portfolio.tls.certresolver=myresolver
 

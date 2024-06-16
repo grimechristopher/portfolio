@@ -1,20 +1,40 @@
-# Build stage
-FROM node:latest as builder
+# # Build stage
+# FROM node:latest as builder
+# WORKDIR /app
+
+# # Copy package.json and package-lock.json to install dependencies
+# COPY package*.json ./
+# RUN npm install
+# # Copy the rest of the application source code
+# COPY . .
+# # Run the build process
+# RUN npm run build
+
+# # Nginx stage
+# FROM nginx:latest
+# # Copy the built files from the builder stage to the Nginx directory
+# COPY --from=builder /app/.output /usr/share/nginx/html
+# # Expose the port your application will run on
+# EXPOSE 3443
+# # Start Nginx and keep it running in the foreground
+# CMD ["nginx", "-g", "daemon off;"]
+
+FROM node:lts-alpine
+
 WORKDIR /app
 
-# Copy package.json and package-lock.json to install dependencies
 COPY package*.json ./
-RUN npm install
-# Copy the rest of the application source code
+
+RUN npm ci
+
 COPY . .
-# Run the build process
+
 RUN npm run build
 
-# Nginx stage
-FROM nginx:latest
-# Copy the built files from the builder stage to the Nginx directory
-COPY --from=builder /app/.output /usr/share/nginx/html
-# Expose the port your application will run on
-EXPOSE 3443
-# Start Nginx and keep it running in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+# customize port 80
+EXPOSE 80
+CMD ["sh", "-c", "NITRO_PORT=80 node .output/server/index.mjs"]
+
+# default port 3000
+# EXPOSE 3000
+# CMD ["node", ".output/server/index.mjs"]
