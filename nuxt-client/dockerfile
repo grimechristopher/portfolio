@@ -1,14 +1,12 @@
 FROM node:20.14.0
 
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
+RUN mkdir -p /usr/src/nuxt-app
+WORKDIR /usr/src/nuxt-app
 COPY . .
-
-EXPOSE 3000
-
+RUN npm i
+RUN npm cache clean --force
 RUN npm run build
-CMD [ "npm", "run", "start" ]
+
+EXPOSE 3000 
+
+CMD ["npm", "run", "start"]

@@ -2,6 +2,7 @@ version: '3'
 services:
   portfolio:
     container_name: portfolio
+    image: portfoilio
     build:
       context: ./nuxt-client
       dockerfile: Dockerfile
@@ -15,8 +16,8 @@ services:
       - traefik.http.routers.portfolio.rule=Host(`www.chrisgrime.com`)
       - traefik.http.routers.portfolio.entrypoints=websecure
       - traefik.http.routers.portfolio.tls.certresolver=myresolver
-    volumes:
-      - /home/auth/.env:/usr/share/nginx/html/.env
+    # volumes:
+      # - /home/auth/.env:/usr/share/nginx/html/.env
 networks:
   server-network:
     external: true
