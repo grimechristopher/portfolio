@@ -139,7 +139,7 @@ function onWindowResize() {
 </script>
 <style scoped>
 body {
-  margin: 0
+  margin: 0;
 }
 
 .container-fullscreen {
