@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_resume_skills",
+  "info": {
+    "displayName": "Skills",
+    "icon": "cube"
+  },
+  "options": {},
+  "attributes": {
+    "Skill": {
+      "type": "string"
+    }
+  }
+}

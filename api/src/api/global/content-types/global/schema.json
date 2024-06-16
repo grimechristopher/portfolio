@@ -16,17 +16,7 @@
       "type": "string"
     },
     "Tagline": {
-      "type": "text"
-    },
-    "SocialLinks": {
-      "type": "component",
-      "repeatable": true,
-      "component": "shared.social-link"
-    },
-    "Bullets": {
-      "type": "component",
-      "repeatable": true,
-      "component": "shared.bullet"
+      "type": "string"
     },
     "SiteIcon": {
       "type": "media",
@@ -35,6 +25,16 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "SocialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "Bullets": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.card-bullet"
     },
     "Technologies": {
       "type": "component",

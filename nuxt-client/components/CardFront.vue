@@ -1,7 +1,7 @@
 <template>
   <div id="container-card-front">
     <div id="container-icon">
-      <img id="card-main-icon" :src="'http://192.168.0.122:1337' + global.SiteIcon.data.attributes.url">
+      <img id="card-main-icon" :src="config.apiUrl + global.SiteIcon.data.attributes.url">
     </div>
     <div id="container-social-links">
       <div v-for="link in global.SocialLinks">
@@ -29,6 +29,7 @@
 </template>
 
 <script setup>
+const config = useRuntimeConfig();
 const { find } = useStrapi4();
 const globalResponse = await find('global', {
   populate: 'deep',
@@ -87,7 +88,7 @@ const global = globalResponse?.data.attributes;
 
 #container-title {
   color: #2f2f3f;
-  padding: 0.75rem 0 1.25rem 0;
+  padding: 0 0 0 0;
 }
 
 #container-title h1 {

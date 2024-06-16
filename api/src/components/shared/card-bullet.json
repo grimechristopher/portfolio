@@ -1,7 +1,8 @@
 {
-  "collectionName": "components_shared_bullets",
+  "collectionName": "components_shared_card_bullets",
   "info": {
-    "displayName": "Bullet",
+    "displayName": "CardBullet",
+    "icon": "bulletList",
     "description": ""
   },
   "options": {},
@@ -9,17 +10,17 @@
     "Title": {
       "type": "string"
     },
-    "FontAwesomeIconClass": {
+    "Location": {
       "type": "string"
     },
     "StartDate": {
       "type": "date"
     },
-    "showDate": {
-      "type": "boolean"
-    },
-    "Location": {
+    "FontAwesomeIconClass": {
       "type": "string"
+    },
+    "ShowDate": {
+      "type": "boolean"
     }
   }
 }

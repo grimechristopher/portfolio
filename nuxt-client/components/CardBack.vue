@@ -8,17 +8,17 @@
         </div>
         <div class="bullet-text">
           <h3>
-            <span v-if="bullet.showDate">{{calcualateYears(bullet.StartDate)}}</span>
+            <span v-if="bullet.ShowDate">{{calcualateYears(bullet.StartDate)}} years</span>
             {{ bullet.Title }}
           </h3>
-          <h3 class="bullet-location" v-if="bullet.Location">{{ bullet.Location }}</h3>
+          <h4 class="bullet-location" v-if="bullet.Location">{{ bullet.Location }}</h4>
         </div>
       </div>
     </div>
 
     <div class="container-skills">
       <div class="container-skill" v-for="skill in global.Technologies">
-        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg role="img" :viewBox="skill.Viewbox" xmlns="http://www.w3.org/2000/svg">
           <title>{{ skill.Title }}</title>
           <path :fill="`#${skill.Color}`" :d="skill.Svg"/>
         </svg>
@@ -54,7 +54,7 @@ function calcualateYears(date) {
 
 <style scoped>
 .header-color-bar {
-  background-color: #234e70;
+  background-color: var(--cg-blue);
   width: 100%;
   height: 7.5%;
   border-top-left-radius: 0.25rem;
@@ -91,12 +91,20 @@ function calcualateYears(date) {
   display: grid;
   grid-template-columns: 1fr 6fr;
   padding: 0.33rem 0;
-
 }
 .container-bullet h3 {
   margin: 0;
-  font-weight: 300;
+  font-size: 0.85rem;
+  font-weight: 700;
+  /* font-weight: 300; */
   /* font-size: 0.95rem; */
+}
+
+.container-bullet h4 {
+  margin: 0;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.85rem;
 }
 
 .bullet-icon {
@@ -139,7 +147,7 @@ function calcualateYears(date) {
     max-width: 55%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: end;
     padding: 0.67rem;
   }
 

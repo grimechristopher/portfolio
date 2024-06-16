@@ -4,7 +4,8 @@
   "info": {
     "singularName": "about",
     "pluralName": "abouts",
-    "displayName": "About"
+    "displayName": "About",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,10 +13,10 @@
   "pluginOptions": {},
   "attributes": {
     "AboutMe": {
-      "type": "richtext"
+      "type": "blocks"
     },
     "AboutSite": {
-      "type": "richtext"
+      "type": "blocks"
     }
   }
 }

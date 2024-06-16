@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-const strapiBaseUri = process.env.API_URL || "http://192.168.0.122:1337";
+const strapiBaseUri = process.env.API_URL;
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -10,6 +10,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/strapi',
     "@nuxtjs/google-fonts",
+    "nuxt-strapi-blocks-renderer",
   ],
   strapi: {   
     url: strapiBaseUri,
@@ -26,5 +27,8 @@ export default defineNuxtConfig({
   devServer: {
     // host: '3000',
     port: 3000 // optional
-}
+  },
+  runtimeConfig: {
+    apiUrl: '',
+  },
 })

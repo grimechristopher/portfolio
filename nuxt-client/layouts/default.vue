@@ -5,6 +5,9 @@
     <div 
       class="container-fullscreen"
     >
+      <div id="resume-container">
+        <ResumeComponent />
+      </div>
       <div class="center-xy">
         <div
           id="container-card"
@@ -144,9 +147,15 @@ body {
   background: var(--bg);
 
   display: flex;
-  flex-direction: column;
-  /* margin: 0; */
-  
+  flex-direction: column;  
+}
+
+#resume-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem;
+  z-index: 1;
 }
 
 .center-xy {
@@ -183,12 +192,14 @@ body {
 }
 
 #card-front {
-  background-color: #F0F0FC;
+  /* background-color: #F0F0FC; */
+  background: linear-gradient(145deg, #f9f9f9, #eaeaea);
   transform: rotateY(0deg);
 }
 
 #card-back {
-  background-color: #F0F0FC;
+  /* background-color: #F0F0FC; */
+  background: linear-gradient(145deg, #f9f9f9, #eaeaea);
   transform: rotateY(180deg);
 }
 

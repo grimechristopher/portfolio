@@ -1,6 +1,8 @@
 :root {
   --bg: #202022;
   --text: #ffffff;
+  --cg-blue: #234e70;
+  --cg-blue-hover: #1a3a54;
 }
 
 *, *::before, *::after {
@@ -20,4 +22,5 @@ body {
 
 main {
   min-height: 100dvh;
+  color: var(--bg);
 }

@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_resume_publications",
+  "info": {
+    "displayName": "Publication",
+    "icon": "book",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Citation": {
+      "type": "string"
+    }
+  }
+}

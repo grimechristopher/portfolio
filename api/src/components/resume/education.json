@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_resume_educations",
+  "info": {
+    "displayName": "Education",
+    "icon": "globe",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Degree": {
+      "type": "string"
+    },
+    "School": {
+      "type": "string"
+    },
+    "StartDate": {
+      "type": "date"
+    },
+    "EndDate": {
+      "type": "date"
+    },
+    "Gpa": {
+      "type": "decimal"
+    },
+    "Bullets": {
+      "type": "component",
+      "repeatable": true,
+      "component": "resume.experience-bullet"
+    },
+    "Graduated": {
+      "type": "boolean"
+    }
+  }
+}

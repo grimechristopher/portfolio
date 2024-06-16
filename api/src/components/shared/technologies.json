@@ -2,6 +2,7 @@
   "collectionName": "components_shared_technologies",
   "info": {
     "displayName": "Technologies",
+    "icon": "chartBubble",
     "description": ""
   },
   "options": {},
@@ -9,10 +10,13 @@
     "Title": {
       "type": "string"
     },
-    "Svg": {
+    "Color": {
       "type": "string"
     },
-    "Color": {
+    "Svg": {
+      "type": "text"
+    },
+    "Viewbox": {
       "type": "string"
     }
   }
