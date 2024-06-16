@@ -1,20 +1,20 @@
-ARG NODE_VERSION=18.14.2
+# Build stage
+FROM node:latest as builder
+WORKDIR /app
 
-FROM node:${NODE_VERSION}-slim as base
-
-ENV NODE_ENV=development
-
-WORKDIR /src
-
-# Build
-FROM base as build
-
-COPY --link package.json package-lock.json .
+# Copy package.json and package-lock.json to install dependencies
+COPY package*.json ./
 RUN npm install
+# Copy the rest of the application source code
+COPY . .
+# Run the build process
+RUN npm run build
 
-# Run
-FROM base
-
-COPY --from=build /src/node_modules /src/node_modules
-
-CMD [ "npm", "run", "dev" ]
+# Nginx stage
+FROM nginx:latest
+# Copy the built files from the builder stage to the Nginx directory
+COPY --from=builder /app/.output /usr/share/nginx/html
+# Expose the port your application will run on
+EXPOSE 3443
+# Start Nginx and keep it running in the foreground
+CMD ["nginx", "-g", "daemon off;"]
