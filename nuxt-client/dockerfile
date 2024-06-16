@@ -1,12 +1,20 @@
-FROM node:20.14.0
+ARG NODE_VERSION=18.14.2
 
-RUN mkdir -p /usr/src/nuxt-app
-WORKDIR /usr/src/nuxt-app
-COPY . .
-RUN npm i
-RUN npm cache clean --force
-RUN npm run build
+FROM node:${NODE_VERSION}-slim as base
 
-EXPOSE 3000 
+ENV NODE_ENV=development
 
-CMD ["npm", "run", "start"]
+WORKDIR /src
+
+# Build
+FROM base as build
+
+COPY --link package.json package-lock.json .
+RUN npm install
+
+# Run
+FROM base
+
+COPY --from=build /src/node_modules /src/node_modules
+
+CMD [ "npm", "run", "dev" ]
