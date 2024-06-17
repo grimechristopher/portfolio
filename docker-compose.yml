@@ -21,7 +21,7 @@ services:
     build: 
       context: ./api
       dockerfile: Dockerfile
-    image: strapi:latest
+    image: strapi
     restart: unless-stopped
     env_file: .env
     environment:
