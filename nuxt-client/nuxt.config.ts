@@ -29,6 +29,6 @@ export default defineNuxtConfig({
     port: 3000 // optional
   },
   runtimeConfig: {
-    apiUrl: '',
+    apiUrl: process.env.NUXT_API_URL,
   },
 })
