@@ -1,40 +1,40 @@
-# # Build stage
-# FROM node:latest as builder
-# WORKDIR /app
-
-# # Copy package.json and package-lock.json to install dependencies
-# COPY package*.json ./
-# RUN npm install
-# # Copy the rest of the application source code
-# COPY . .
-# # Run the build process
-# RUN npm run build
-
-# # Nginx stage
-# FROM nginx:latest
-# # Copy the built files from the builder stage to the Nginx directory
-# COPY --from=builder /app/.output /usr/share/nginx/html
-# # Expose the port your application will run on
-# EXPOSE 3443
-# # Start Nginx and keep it running in the foreground
-# CMD ["nginx", "-g", "daemon off;"]
-
 FROM node:lts-alpine
 
+# WORKDIR /app
+
+# COPY package*.json ./
+
+# RUN npm ci
+
+# COPY . .
+
+# RUN npm run build
+
+# EXPOSE 80
+# CMD ["sh", "-c", "NITRO_PORT=80 node .output/server/index.mjs"]
+
+# create work directory in app folder
 WORKDIR /app
 
-COPY package*.json ./
+# install required packages for node image
+RUN apk --no-cache add openssh g++ make python3 git
 
-RUN npm ci
+# copy over package.json files
+COPY package.json /app/
+COPY package-lock.json /app/
 
-COPY . .
+# install all depencies
+RUN npm ci && npm cache clean --force
 
+# copy over all files to the work directory
+ADD . /app
+
+# build the project
 RUN npm run build
 
-# customize port 80
-EXPOSE 80
-CMD ["sh", "-c", "NITRO_PORT=80 node .output/server/index.mjs"]
+# expose the host and port 3000 to the server
+ENV HOST 0.0.0.0
+EXPOSE 3000
 
-# default port 3000
-# EXPOSE 3000
-# CMD ["node", ".output/server/index.mjs"]
+# run the build project with node
+ENTRYPOINT ["node", ".output/server/index.mjs"]
