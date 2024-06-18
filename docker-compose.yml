@@ -18,7 +18,6 @@ services:
       - traefik.http.routers.portfolio.tls.certresolver=myresolver
     volumes:
       - ./public/uploads:/opt/app/.output/public/uploads
-      - shared-uploads:/opt/app/shared-uploads
 
   strapi:
     container_name: strapi
@@ -47,7 +46,7 @@ services:
       # - ./yarn.lock:/opt/yarn.lock
       - ./.env:/opt/app/.env
       - ./public:/opt/app/public
-      - shared-uploads:/opt/app/public/uploads
+      - ./public/uploads:/opt/app/public/uploads
     ports:
       - "1337:1337"
     networks:
@@ -57,9 +56,6 @@ services:
       - traefik.http.routers.strapi.rule=Host(`strapi.chrisgrime.com`)
       - traefik.http.routers.strapi.entrypoints=websecure
       - traefik.http.routers.strapi.tls.certresolver=myresolver
-
-volumes:
-  shared-uploads:
 
 networks:
   server-network:
