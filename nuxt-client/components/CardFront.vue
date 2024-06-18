@@ -1,7 +1,7 @@
 <template>
   <div id="container-card-front">
     <div id="container-icon">
-      <img id="card-main-icon" :src="`${config.apiUrl}${global.SiteIcon.data.attributes.url}`">
+      <img id="card-main-icon" :src="`${config.apiUrl}/${global.SiteIcon.data.attributes.url}`">
     </div>
     <div id="container-social-links">
       <div v-for="link in global.SocialLinks">
