@@ -16,6 +16,8 @@ services:
       - traefik.http.routers.portfolio.rule=Host(`www.chrisgrime.com`) || Host(`chrisgrime.com`)
       - traefik.http.routers.portfolio.entrypoints=websecure
       - traefik.http.routers.portfolio.tls.certresolver=myresolver
+    volumes:
+      - ./public/uploads:/opt/app/public/uploads
   strapi:
     container_name: strapi
     build: 
