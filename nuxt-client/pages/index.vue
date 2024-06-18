@@ -20,7 +20,7 @@
       </NuxtLink>
     </div>
     <h2>About This Site</h2>
-    <p v-html="about.AboutSite"></p>
+    <StrapiBlocksText :nodes="about.AboutSite" />
   </div>
 </template>
 <script setup>
