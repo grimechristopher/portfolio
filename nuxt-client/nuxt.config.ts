@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-const strapiBaseUri = process.env.API_URL;
+const strapiBaseUri = process.env.NUXT_API_URL;
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
