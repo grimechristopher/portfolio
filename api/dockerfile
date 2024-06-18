@@ -47,7 +47,7 @@ COPY --from=build /opt/app ./
 ENV PATH /opt/node_modules/.bin:$PATH
 
 # Ensure the uploads directory exists and has the correct permissions
-RUN mkdir -p /opt/app/public/uploads && chown -R node:node /opt/app/public/uploads
+RUN mkdir -p /opt/app/public&& chown -R node:node /opt/app/public
 
 # Set ownership for the entire app directory
 RUN chown -R node:node /opt/app
