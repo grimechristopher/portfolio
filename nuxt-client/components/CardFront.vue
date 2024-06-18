@@ -7,7 +7,7 @@
       <div v-for="link in global.SocialLinks">
         <NuxtLink 
           class="social-link" 
-          :to="link.Url" 
+          :to="`${config.apiUrl}/${link.Url}`" 
           @click.stop target="_blank">
             <client-only>
               <font-awesome-icon
