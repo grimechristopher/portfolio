@@ -46,6 +46,7 @@
 </template>
 
 <script lang="ts" setup>
+console.log("Hello from the Fullscreen Card Page");
 import { ref, onMounted } from 'vue'
 
 const containerCard = ref();

@@ -3,8 +3,8 @@
     <ul>
       <li></li>
       <li><NuxtLink :to="{ path: '/', hash: '#placeholder' }">About</NuxtLink></li>
-      <li><NuxtLink :to="{ path: '/projects', hash: '#placeholder' }">Projects</NuxtLink></li>
-      <li><NuxtLink :to="{ path: '/articles', hash: '#placeholder' }">Articles</NuxtLink></li>
+      <!-- <li><NuxtLink :to="{ path: '/projects', hash: '#placeholder' }">Projects</NuxtLink></li> -->
+      <!-- <li><NuxtLink :to="{ path: '/articles', hash: '#placeholder' }">Articles</NuxtLink></li> -->
     </ul>
 
     <div class="navbar-button">

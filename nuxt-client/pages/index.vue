@@ -1,5 +1,5 @@
 <template>
-  <div class="about-section">
+  <div class="about-section"> 
     <h2>About Chris</h2>
     <StrapiBlocksText :nodes="about.AboutMe" />
     <div>
