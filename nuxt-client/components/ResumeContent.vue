@@ -4,7 +4,7 @@
             <div class="resume-name">
                 <h1 class="name-text">{{ resume.Name }}</h1>
                 <h2 class="title-text">{{ resume.Title }}</h2>
-                <h2 class="address-text">{{ resume.Address }}</h2>
+                <h2 class="address-text"><font-awesome-icon class="link-icon" icon="fa-location-dot" title="location" />{{ resume.Address }}</h2>
                 <h2>{{ resume.Phone }}</h2>
             </div>
             <div class="resume-links">
@@ -13,7 +13,14 @@
                     v-for="link in resume.Links"
                 >
                     <a :href="link?.Url">
-                        <span></span><span>{{ link?.Text }}</span></a>
+                        <span class="link-icon">             
+                            <font-awesome-icon
+                                :icon="link.FontAwesomeIconClass" 
+                                :title="link.Url" 
+                                size="1x"
+                            />
+                        </span>
+                        <span class="link-text">{{ link?.Text }}</span></a>
                 </div>
             </div>
         </div>
@@ -36,8 +43,8 @@
                     </div>
                     <div class="experience-date">
                         <div>
-                            <span v-if="experience.StartDate">{{ monthYearFormat(experience.StartDate) }}</span>
-                            <span v-if="experience.EndDate"> - {{ monthYearFormat(experience.EndDate) }}</span>
+                            <span v-if="experience.StartDate" class="resume-date">{{ monthYearFormat(experience.StartDate) }}</span>
+                            <span v-if="experience.EndDate" class="resume-date"> - {{ monthYearFormat(experience.EndDate) }}</span>
                             <span v-else> - Present</span>
                         </div>
                         <div>
@@ -55,7 +62,7 @@
             </div>
         </div>
         <div class="resume-education">
-            <h2 v-if="resume.Education" class="section-header">Experience</h2>
+            <h2 v-if="resume.Education" class="section-header">Education</h2>
             <div v-for="education in resume.Education">
                 <div class="education-header">
                     <div class="education-title">
@@ -107,6 +114,10 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 12pt;
 }
 
+ul {
+    padding-left: 2rem;
+}
+
 .resume-content {
     margin: 0.5in;
 }
@@ -120,6 +131,15 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
     text-decoration: none;
     color: var(--cg-blue);
+    /* border-bottom: solid 1px var(--cg-blue); */
+}
+
+.link-icon {
+    color: var(--bg);
+    padding-right: 0.33em;
+}
+
+.link-text {
     border-bottom: solid 1px var(--cg-blue);
 }
 
@@ -140,6 +160,8 @@ h1, h2, h3, h4, h5, h6 {
 .section-header {
     border-bottom: solid 2px var(--cg-blue);
     margin-top: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .name-text {
@@ -150,16 +172,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .title-text, .address-text {
     font-weight: 400;
-    font-size: 90%;
+    /* font-size: 90%; */
 }
 
-.experience-company {
-    /* display: inline-block; */
-    /* gap: 0.5em; */
-}
 .experience-company h3, .experience-company h4, .school-text {
     font-weight: 400;
     font-style: italic;
+}
+
+.resume-date {
+    
 }
 
 

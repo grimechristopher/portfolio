@@ -48,13 +48,14 @@ router.afterEach(() => {
 </script>
 <style scoped>
 .resume-button {
-    /* z-index: 1; */
+    position: relative;
+    z-index: 1;
     margin: 0.33em;
     padding: 15px 20px;
     font-size: 16px;
     font-weight: bold;
     color: white;
-    background-color: transparent;
+    background-color: var(--bg);
     /* background-color: var(--cg-blue); */
     border: 2px solid var(--cg-blue);
     border-radius: 15px;
@@ -65,6 +66,7 @@ router.afterEach(() => {
 
 .resume-button.bg-light {
     color: var(--cg-blue);
+    background-color: transparent;
 }
 
 .resume-button.bg-light:hover {

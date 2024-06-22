@@ -7,11 +7,11 @@
             class="buttons-container"
         >
         <div class="resume-menu" @click="event => event.stopPropagation()"  :class="{'hide-buttons': !showButtonMenu}">
-            <button>Save Pdf</button>
+            <button @click="saveResume()">Save Pdf</button>
             <button @click="printResume('resume-print')">Print</button>
         </div>
             <button 
-                @click="showButtonMenu = !showButtonMenu" 
+                @click.stop="showButtonMenu = !showButtonMenu" 
                 class="hovering-button"
             >{{ showButtonMenu ? 'X' : 'S' }}</button>
             <button @click="hideModal()">Back</button>
@@ -28,6 +28,9 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 import ResumeContent from './ResumeContent.vue';
+
+import html2pdf from 'html2pdf.js';
+
 const emit = defineEmits(['closeResumeModal',]);
 const showButtonMenu = ref(false);
 const modalHidden = ref(false);
@@ -63,6 +66,13 @@ function printResume(resumeDivId) {
     printWindow.close();
 }
 
+function saveResume() {
+    const resumeDiv = document.getElementById('resume-print');
+    if(import.meta.client) {
+        html2pdf(resumeDiv) // TODO: replace with jsPDF
+    }
+}
+
 function hideModal() {
     modalHidden.value = true;
     // wait 0.5s
@@ -72,14 +82,6 @@ function hideModal() {
 }
 </script>
 <style scoped>
-.modal {
-    margin: 0.5in;
-    animation: slideInFromTop 0.5s ease-in-out;
-}
-.modal.close {
-    animation: slideOutToTop 0.5s ease-in-out;
-}
-
 @keyframes slideInFromTop {
     0% {
         transform: translateY(-100%);
@@ -104,6 +106,7 @@ function hideModal() {
     left: 0;
     width: 100%;
     height: 100%;
+    max-width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     transition: background-color 0.5s ease-in-out;
     display: flex;
@@ -112,6 +115,16 @@ function hideModal() {
     align-items: center;
     overflow-y: scroll;
     padding-bottom: 1.33in;
+    z-index: 2;
+}
+
+.modal {
+    margin-top: 0.5in;
+    margin-bottom: 0.5in;
+    animation: slideInFromTop 0.5s ease-in-out;
+}
+.modal.close {
+    animation: slideOutToTop 0.5s ease-in-out;
 }
 
 .resume-menu {
@@ -121,6 +134,9 @@ function hideModal() {
 
 .modal {
     width: 100vw;
+    min-height: fit-content;
+    /* height: 11in; */
+    /* min-height: 11in; */
     background-color: #FFFFFF;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0), 0 6px 20px 0 rgba(0, 0, 0);
 }
@@ -163,7 +179,9 @@ button:hover {
 
 /* Media style for screens wider than 8.5in */
 @media screen and (min-width: 11.5in) {
-    .buttons-container {}
+    .modal {
+        margin: 0.5in;
+    }
 
 }
 @media screen and (min-width: 10.5in) {

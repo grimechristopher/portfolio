@@ -143,12 +143,17 @@ body {
   margin: 0;
 }
 
+main {
+  padding: 0.5rem;
+}
+
 .container-fullscreen {
   height: 100dvh;
   background: var(--bg);
 
   display: flex;
   flex-direction: column;  
+  position: relative;
 }
 
 #resume-container {
@@ -167,6 +172,7 @@ body {
   perspective: 100vw;
   flex-grow: 1;
   flex-basis: auto;
+  position: relative;
 }
 
 /* 
@@ -180,6 +186,9 @@ body {
   --rotateX: 0;
   --rotateY: 0;
   transform: rotateX(calc(var(--rotateX) * 1deg)) rotateY(calc(var(--rotateY) * 1deg));
+
+  z-index: 10;
+  position: relative;
 }
 
 .card {
