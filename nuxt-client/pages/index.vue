@@ -2,23 +2,6 @@
   <div class="about-section"> 
     <h2>About Chris</h2>
     <StrapiBlocksText :nodes="about.AboutMe" />
-    <div>
-      <ResumeComponent
-        bgShade="light"
-      />
-      <NuxtLink 
-        class="about-link-button" 
-        to="https://github.com/grimechristopher" 
-        @click.stop target="_blank">
-            <span>Github</span>
-      </NuxtLink>
-      <NuxtLink 
-        class="about-link-button" 
-        to="https://www.linkedin.com/in/grimechristopher" 
-        @click.stop target="_blank">
-            <span>LinkedIn</span>
-      </NuxtLink>
-    </div>
     <h2>About This Site</h2>
     <StrapiBlocksText :nodes="about.AboutSite" />
   </div>

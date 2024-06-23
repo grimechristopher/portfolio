@@ -21,7 +21,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@nuxtjs/google-fonts": "^3.0.2",
-    "html2pdf.js": "^0.9.0",
     "nuxt-strapi-blocks-renderer": "^1.0.6",
     "vue-markdown-render": "^2.2.1",
     "vue-strapi-blocks-renderer": "^0.2.2"

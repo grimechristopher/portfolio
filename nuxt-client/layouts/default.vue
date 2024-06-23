@@ -72,6 +72,15 @@ onMounted(() => {
   windowWidth = window.innerWidth;
 
   cardWidth = containerCard.value.clientWidth;
+
+  // click the card to flip it twice
+  onClick(new MouseEvent('click', { clientX: windowWidth / 2, clientY: windowHeight / 2 }));
+  // wait half a second
+  setTimeout(() => {
+    onClick(new MouseEvent('click', { clientX: (windowWidth + 2) / 2, clientY: windowHeight / 2 }));
+  }, 500);
+  //  onClick(new MouseEvent('click', { clientX: windowWidth / 2, clientY: windowHeight / 2 }));
+    
 })  
 
 function mouseMove(event: MouseEvent) {

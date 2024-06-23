@@ -20,10 +20,6 @@ const showModal = ref(false);
 const router = useRouter();
 const props = defineProps(['bgShade'])
 
-// watch(showModal, (newVal) => {
-//     console.log("Show modal changed to: ", newVal);
-// });
-
 function openResumeModal() {
     // Add a hash to the URL to allow for direct linking to the modal
     router.push({ hash: '#resume', params: { savePosition: true }  });
@@ -31,20 +27,25 @@ function openResumeModal() {
 }
 
 function closeResumeModal() {
-    router.push({ hash: '#' });
-    // Dont scroll back to top
-
+    router.push({ hash: '#' }); // Dont scroll back to top
     showModal.value = false;
 }
 
+// router.afterEach(() => {
+//     if (router.currentRoute.value.hash !== '#resume') {
+//         showModal.value = false;
+//     } 
+// });
 
-router.afterEach(() => {
-    if (router.currentRoute.value.hash !== '#resume') {
+watch(router.currentRoute, (to, from) => {
+    if (to.hash === '#resume') {
+        showModal.value = true;
+        openResumeModal();
+    } else {
         showModal.value = false;
-    } 
-    
+    }
 });
-
+    
 </script>
 <style scoped>
 .resume-button {

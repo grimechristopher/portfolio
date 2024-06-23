@@ -110,8 +110,8 @@ function calcualateYears(date) {
 .bullet-icon {
   display: flex;
   justify-content: center;
-  padding-top: 12%;
-  /* align-items: center; */
+  height: 100%;
+  padding-top: 6%;
 }
 
 .bullet-location {
@@ -147,7 +147,7 @@ function calcualateYears(date) {
     max-width: 55%;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: center;
     padding: 0.67rem;
   }
 

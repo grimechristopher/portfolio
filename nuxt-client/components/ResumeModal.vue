@@ -1,26 +1,13 @@
 <template>
-    <div 
-        class="modal-overlay"
-        @click="hideModal()"
-    >
-        <div 
-            class="buttons-container"
-        >
-        <div class="resume-menu" @click="event => event.stopPropagation()"  :class="{'hide-buttons': !showButtonMenu}">
-            <button @click="saveResume()">Save Pdf</button>
+    <div class="modal-overlay" @click="hideModal()">
+        <div class="buttons-container">
+            <div class="resume-menu" @click="event => event.stopPropagation()"
+                :class="{ 'hide-buttons': !showButtonMenu }">
+            </div>
             <button @click="printResume('resume-print')">Print</button>
-        </div>
-            <button 
-                @click.stop="showButtonMenu = !showButtonMenu" 
-                class="hovering-button"
-            >{{ showButtonMenu ? 'X' : 'S' }}</button>
             <button @click="hideModal()">Back</button>
         </div>
-        <div 
-            class="modal"
-            :class="{'close': modalHidden}"
-            @click="event => event.stopPropagation()"
-        >
+        <div id="modal-resume" class="modal" :class="{ 'close': modalHidden }" @click="event => event.stopPropagation()">
             <ResumeContent />
         </div>
     </div>
@@ -28,8 +15,6 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 import ResumeContent from './ResumeContent.vue';
-
-import html2pdf from 'html2pdf.js';
 
 const emit = defineEmits(['closeResumeModal',]);
 const showButtonMenu = ref(false);
@@ -48,7 +33,10 @@ function printResume(resumeDivId) {
     const printWindow = window.open('', '', 'height=500,width=800');
 
     // Write the document for the print window
-    printWindow.document.write('<html><head><title>Print Div</title>');
+    // Date of now in yyyymmdd_hhmmss format
+    const now = new Date();
+    const date = now.toISOString().replace("T","_").substring(0, 19);
+    printWindow.document.write(`<html><head><title>Resume_Chris_Grime_${date}</title>`);
 
     // Get all stylesheets from the current document and apply them to the print window
     const styles = document.querySelectorAll('style, link[rel="stylesheet"]');
@@ -66,13 +54,6 @@ function printResume(resumeDivId) {
     printWindow.close();
 }
 
-function saveResume() {
-    const resumeDiv = document.getElementById('resume-print');
-    if(import.meta.client) {
-        html2pdf(resumeDiv) // TODO: replace with jsPDF
-    }
-}
-
 function hideModal() {
     modalHidden.value = true;
     // wait 0.5s
@@ -86,6 +67,7 @@ function hideModal() {
     0% {
         transform: translateY(-100%);
     }
+
     100% {
         transform: translateY(0);
     }
@@ -95,6 +77,7 @@ function hideModal() {
     0% {
         transform: translateY(0);
     }
+
     100% {
         transform: translateY(-100%);
     }
@@ -123,6 +106,7 @@ function hideModal() {
     margin-bottom: 0.5in;
     animation: slideInFromTop 0.5s ease-in-out;
 }
+
 .modal.close {
     animation: slideOutToTop 0.5s ease-in-out;
 }
@@ -146,13 +130,14 @@ function hideModal() {
     bottom: 0;
     right: 0;
     padding: 0.33em;
-    margin: 0.33in;
+    margin: 0.5em;
     display: flex;
     flex-direction: column;
     justify-content: right;
+    z-index: 2;
 }
 
-.hide-buttons{
+.hide-buttons {
     display: none;
 
 }
@@ -184,24 +169,29 @@ button:hover {
     }
 
 }
+
 @media screen and (min-width: 10.5in) {
     .modal-overlay {
         padding: 1in 0;
         background-color: rgba(0, 0, 0, 0.5);
     }
+
     .modal {
         width: 8.5in;
         min-height: 11in;
     }
+
     .buttons-container {
         top: 0;
         padding-top: 1in;
         margin-top: 0;
         /* margin-right: 1in; */
     }
+
     .hide-buttons {
         display: flex;
     }
+
     .hovering-button {
         display: none;
     }
@@ -212,26 +202,31 @@ button:hover {
         display: none !important;
         /* height: 0; */
     }
+
     .resume-print {
         display: block;
         /* position: relative; */
     }
+
     .modal-overlay {
         padding: 0;
+        margin: 0;
         background-color: rgba(0, 0, 0, 0);
         position: static;
     }
+
     .modal {
         width: 8.5in;
         min-height: 11in;
         display: block;
     }
+
     .buttons-container {
         display: none;
     }
+
     .hovering-button {
         display: none;
     }
 }
-
 </style>

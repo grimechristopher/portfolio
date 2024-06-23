@@ -16,11 +16,13 @@ html {
 body { 
   margin: 0;
   font-family: "Open Sans", sans-serif;
-
+  
   height: 100dvh;
 }
 
 main {
   min-height: 100dvh;
   color: var(--bg);
+  font-size: 16pt;
+  line-height: 1.5;
 }
