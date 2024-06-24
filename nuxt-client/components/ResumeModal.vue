@@ -49,9 +49,11 @@ function printResume(resumeDivId) {
     printWindow.document.write('</body></html>');
     printWindow.document.close();
 
-    printWindow.focus();
-    printWindow.print();
-    printWindow.close();
+    printWindow.onload = () => {
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    };
 }
 
 function hideModal() {
