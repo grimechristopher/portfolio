@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_article_text_blocks",
+  "info": {
+    "displayName": "TextBlock",
+    "icon": "write"
+  },
+  "options": {},
+  "attributes": {
+    "Text": {
+      "type": "text"
+    }
+  }
+}

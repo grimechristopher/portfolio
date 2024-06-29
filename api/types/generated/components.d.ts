@@ -1,5 +1,27 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface ArticleImageBlock extends Schema.Component {
+  collectionName: 'components_article_image_blocks';
+  info: {
+    displayName: 'ImageBlock';
+    icon: 'picture';
+  };
+  attributes: {
+    Image: Attribute.Media<'images'>;
+  };
+}
+
+export interface ArticleTextBlock extends Schema.Component {
+  collectionName: 'components_article_text_blocks';
+  info: {
+    displayName: 'TextBlock';
+    icon: 'write';
+  };
+  attributes: {
+    Text: Attribute.Text;
+  };
+}
+
 export interface ResumeEducation extends Schema.Component {
   collectionName: 'components_resume_educations';
   info: {
@@ -121,6 +143,8 @@ export interface SharedTechnologies extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'article.image-block': ArticleImageBlock;
+      'article.text-block': ArticleTextBlock;
       'resume.education': ResumeEducation;
       'resume.experience-bullet': ResumeExperienceBullet;
       'resume.experience': ResumeExperience;

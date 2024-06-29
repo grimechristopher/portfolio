@@ -820,6 +820,45 @@ export interface ApiAboutAbout extends Schema.SingleType {
   };
 }
 
+export interface ApiArticleArticle extends Schema.CollectionType {
+  collectionName: 'articles';
+  info: {
+    singularName: 'article';
+    pluralName: 'articles';
+    displayName: 'Article';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.String;
+    Subtitle: Attribute.String;
+    Url: Attribute.String;
+    IsMedium: Attribute.Boolean;
+    Images: Attribute.Media<'images', true>;
+    FeaturedImage: Attribute.Media<'images'>;
+    Content: Attribute.DynamicZone<
+      ['article.image-block', 'article.text-block']
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::article.article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::article.article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Schema.SingleType {
   collectionName: 'globals';
   info: {
@@ -913,6 +952,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::about.about': ApiAboutAbout;
+      'api::article.article': ApiArticleArticle;
       'api::global.global': ApiGlobalGlobal;
       'api::resume.resume': ApiResumeResume;
     }
