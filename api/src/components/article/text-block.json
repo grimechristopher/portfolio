@@ -2,12 +2,13 @@
   "collectionName": "components_article_text_blocks",
   "info": {
     "displayName": "TextBlock",
-    "icon": "write"
+    "icon": "write",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "Text": {
-      "type": "text"
+    "RichText": {
+      "type": "blocks"
     }
   }
 }

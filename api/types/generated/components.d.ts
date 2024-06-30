@@ -16,9 +16,10 @@ export interface ArticleTextBlock extends Schema.Component {
   info: {
     displayName: 'TextBlock';
     icon: 'write';
+    description: '';
   };
   attributes: {
-    Text: Attribute.Text;
+    RichText: Attribute.Blocks;
   };
 }
 
