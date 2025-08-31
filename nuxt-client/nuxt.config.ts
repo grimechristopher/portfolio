@@ -1,40 +1,34 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-const strapiBaseUri = process.env.NUXT_API_URL;
-
 export default defineNuxtConfig({
+  compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  css: [
-    '~/assets/css/main.css',
-    '@fortawesome/fontawesome-svg-core/styles.css',
-  ],
-  modules: [
-    '@nuxtjs/strapi',
-    "@nuxtjs/google-fonts",
-    "nuxt-strapi-blocks-renderer",
-  ],
-  strapi: {   
-    url: strapiBaseUri,
-    prefix: '/api',  
-    version: 'v4',
-    cookie: {},
-    cookieName: 'strapi_jwt',
-  },
-  googleFonts: {
-    families: {
-        'Open Sans': [400, 500, 600, 700],
+  modules: ['@nuxtjs/supabase', '@nuxtjs/tailwindcss', '@nuxtjs/mdc'],
+  mdc: {
+    components: {
+      prose: true, // Enable default prose components
+      map: {}
     },
-  },
-  devServer: {
-    // host: '3000',
-    port: 3000 // optional
-  },
-  runtimeConfig: {
-    apiUrl: process.env.NUXT_API_URL,
-  },
-  app: {
-    head: {
-      charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1',
+    highlight: {
+      theme: 'github-light'
     }
   },
+  pages: true,
+  css: ['~/assets/css/main.css'],
+  devServer: {
+    https: true
+  },
+  runtimeConfig: {
+    public: {
+      baseUrl: process.env.NUXT_PUBLIC_BASE_URL || 'https://localhost:3000',
+      strapiUrl: process.env.NUXT_PUBLIC_STRAPI_URL || 'http://localhost:1337',
+    }
+  },
+  supabase: {
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      exclude: ['/login', '/confirm'],
+      cookieRedirect: true,
+      saveRedirectToCookie: true
+    }
+  }
 })

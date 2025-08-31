@@ -1,237 +1,229 @@
-
 <template>
-  <!-- Full Page Flipping Card-->
-  <div>
-    <div 
-      class="container-fullscreen"
-    >
-      <div id="resume-container">
-        <ResumeComponent />
+  <div class="app-layout">
+    <!-- Full viewport header / hero section -->
+    <div class="above-fold">
+      <!-- Resume button in top right corner -->
+      <div class="resume-button-container" v-show="!isHeaderSticky">
+        <button @click="showResume = !showResume" class="resume-button">Resume</button>
       </div>
-      <div class="center-xy">
-        <div
-          id="container-card"
-          ref="containerCard"
-          @mouseleave="mouseLeave()"
-          @mousemove="mouseMove($event)"
-          @click="onClick($event)"
-          @touchmove="touchMove($event)"
-          @touchend="mouseLeave()"
-        >
-          <div 
-            id="card-front" 
-            ref="cardFront" 
-            class="card"
-          >
-            <CardFront />
-          </div>
-          <div 
-            id="card-back" 
-            ref="cardBack" 
-            class="card"
-          >
-            <CardBack />
-          </div>
+      
+      <section class="hero-section">
+        <!-- Your business card container -->
+        <div class="hero-content">
+          <FlipCard />
         </div>
-      </div>
-      <div id="placeholder"></div>
-      <div id="container-navigation">
-        <Navbar />
-      </div>
+      </section>
+      <!-- Header at bottom of the screen -->
+      <header class="app-header" ref="header">
+        <slot name="header" />
+        <nav>
+          <!-- Nav links on the left -->
+          <div class="nav-links">
+            <a href="/">Home</a>
+          </div>
+          <!-- Resume button appears in navbar when sticky (on the right) -->
+          <button 
+            v-show="isHeaderSticky" 
+            @click="showResume = !showResume" 
+            class="resume-button navbar-resume-button">
+            Resume
+          </button>
+        </nav>
+      </header>
     </div>
+
+    
+    <!-- Page content below hero and navigation -->
     <main>
       <slot />
     </main>
+
+    <div v-if="showResume">
+      <ResumeComponent @close="showResume = false" />
+    </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-console.log("Hello from the Fullscreen Card Page");
-import { ref, onMounted } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
 
-const containerCard = ref();
-const cardFront = ref();
-const cardBack = ref();
+const header = ref<HTMLElement>()
+const showResume = ref(false)
+const isHeaderSticky = ref(false)
 
-const maxRotation = 10; // Max Rotation of the card in degrees.
-const mobileBreakpoint = 640;
-
-let isFlipped = false;
-let windowWidth = 0;
-let windowHeight = 0;
-let cardWidth = 0;
-
-let frontDegrees = 0;
-let backDegrees = 180;
-
+// Handle scroll behavior for header
+const handleScroll = () => {
+  if (!header.value) return
+  
+  const scrollY = window.scrollY
+  const viewportHeight = window.innerHeight
+  
+  if (scrollY >= viewportHeight - header.value.offsetHeight) {
+    header.value.classList.add('sticky-top')
+    isHeaderSticky.value = true
+  } else {
+    header.value.classList.remove('sticky-top')
+    isHeaderSticky.value = false
+  }
+}
 
 onMounted(() => {
-  window.addEventListener('resize', onWindowResize)
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+})
 
-  windowHeight = window.innerHeight;
-  windowWidth = window.innerWidth;
-
-  cardWidth = containerCard.value.clientWidth;
-
-  // click the card to flip it twice
-  onClick(new MouseEvent('click', { clientX: windowWidth / 2, clientY: windowHeight / 2 }));
-  // wait half a second
-  setTimeout(() => {
-    onClick(new MouseEvent('click', { clientX: (windowWidth + 2) / 2, clientY: windowHeight / 2 }));
-  }, 500);
-  //  onClick(new MouseEvent('click', { clientX: windowWidth / 2, clientY: windowHeight / 2 }));
-    
-})  
-
-function mouseMove(event: MouseEvent) {
-  if (windowWidth <= mobileBreakpoint) {
-    return;
-  }
-
-  const halfWidth = windowWidth / 2
-  const halfHeight = windowHeight / 2 
-
-  const yAxisRotation = (event.clientX - halfWidth) / halfWidth * 2 * maxRotation;
-  const xAxisRotation = (event.clientY - halfHeight) / halfHeight * 2 * maxRotation;
-  
-  containerCard.value.style.transition = 'none'
-  containerCard.value.style.setProperty('--rotateX', -xAxisRotation);
-  containerCard.value.style.setProperty('--rotateY', yAxisRotation);
-
-}
-
-function mouseLeave() {
-  containerCard.value.style.transition = "transform .3s 0.3s";
-  containerCard.value.style.setProperty('--rotateX', 0);
-  containerCard.value.style.setProperty('--rotateY', 0);
-
-  console.log("Leaving")
-}
-
-function onClick(event: MouseEvent) {
-  isFlipped = !isFlipped;
-
-  cardFront.value.style.transition = "transform .5s 0s";
-  cardBack.value.style.transition = "transform .5s 0s";
-  
-  if (event.clientX > windowWidth / 2) {
-    frontDegrees += 180;
-    backDegrees += 180;
-  }
-  else {
-    frontDegrees -= 180;
-    backDegrees -= 180;
-  }
-    
-  if (isFlipped === true) {
-    cardFront.value.style.setProperty('transform', `rotateY(${frontDegrees}deg)`); 
-    cardBack.value.style.setProperty('transform', `rotateY(${backDegrees}deg)`); 
-  }
-  else {
-    cardFront.value.style.setProperty('transform', `rotateY(${frontDegrees}deg)`); 
-    cardBack.value.style.setProperty('transform', `rotateY(${backDegrees}deg)`); 
-  }
-}
-
-function touchMove(event: TouchEvent) {
-  const currentTouchX = event.touches[0].clientX;
-  const halfWidth = cardWidth / 2
-  const yAxisRotation = (currentTouchX - halfWidth) / halfWidth * maxRotation;
-
-  containerCard.value.style.transition = 'none'
-  containerCard.value.style.setProperty('--rotateY', yAxisRotation);
-}
-
-function onWindowResize() {
-  windowWidth = window.innerWidth;
-}
-
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
+
 <style scoped>
-body {
-  margin: 0;
-}
-
 main {
-  padding: 0.5rem;
+  background-color: var(--bg);
 }
 
-.container-fullscreen {
-  height: 100dvh;
-  background: var(--bg);
+.app-layout {
+  min-height: 100vh;
+}
 
+.above-fold {
+  flex-shrink: 0;
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
   position: relative;
 }
 
-#resume-container {
+.resume-button-container {
   position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0.5rem;
-  z-index: 1;
+  top: 2rem;
+  right: 2rem;
+  z-index: 200;
 }
 
-.center-xy {
+.resume-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cg-blue);
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resume-button:hover {
+  background: var(--cg-blue-hover);
+  transform: translateY(-1px);
+}
+
+.hero-section {
+  /* height: 100vh; */
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--hero-bg); 
 
-  perspective: 100vw;
-  flex-grow: 1;
-  flex-basis: auto;
-  position: relative;
 }
 
-/* 
-  Playing Cards are 2.5in * 3.5in
-  Business Cards are 2in * 3.5in
-*/
-#container-card {
-  width: 35em;
-  height: 20em;
-  
-  --rotateX: 0;
-  --rotateY: 0;
-  transform: rotateX(calc(var(--rotateX) * 1deg)) rotateY(calc(var(--rotateY) * 1deg));
-
+.hero-content {
+  position: relative;
   z-index: 10;
-  position: relative;
+  perspective: 100vw;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.card {
-  width: inherit;
-  height: inherit;
-  /* border: solid #FFFFFF 1px; */
-  border-radius: 0.25rem;
+.app-header {
   position: absolute;
-  backface-visibility: hidden;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0), 0 6px 20px 0 rgba(0, 0, 0);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  flex-shrink: 0;
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#card-front {
-  /* background-color: #F0F0FC; */
-  background: linear-gradient(145deg, #f9f9f9, #eaeaea);
-  transform: rotateY(0deg);
+.app-header nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
-#card-back {
-  /* background-color: #F0F0FC; */
-  background: linear-gradient(145deg, #f9f9f9, #eaeaea);
-  transform: rotateY(180deg);
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
 }
 
-#placeholder {
-  position: absolute;
-  bottom: 42px;
+.navbar-resume-button {
+  background: var(--cg-blue);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* Some 'mobile second' designing */
-@media (max-width: 640px) {
-  #container-card {
-    width: 20em;
-    height: 35em;
-  }
+.navbar-resume-button:hover {
+  background: var(--cg-blue-hover);
+  transform: translateY(-1px);
 }
+
+.app-header nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.app-header nav a:hover {
+  color: var(--cg-blue-light);
+}
+
+.app-header.sticky-top {
+  position: fixed;
+  top: 0;
+  bottom: auto;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.app-footer {
+  margin-top: auto;
+  padding: 1rem;
+  background: var(--footer-bg, #f9fafb);
+  border-top: 1px solid var(--border-color, #e5e7eb);
+  text-align: center;
+  color: var(--text-muted, #6b7280);
+}
+
+
 </style>

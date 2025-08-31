@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_bullets_experiences",
+  "info": {
+    "displayName": "Experience",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "Type": {
+      "type": "enumeration",
+      "enum": [
+        "Work",
+        "Education"
+      ]
+    },
+    "Title": {
+      "type": "string"
+    },
+    "Location": {
+      "type": "string"
+    },
+    "StartDate": {
+      "type": "date"
+    }
+  },
+  "config": {}
+}

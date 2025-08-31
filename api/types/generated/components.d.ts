@@ -1,134 +1,65 @@
-import type { Schema, Attribute } from '@strapi/strapi';
+import type { Schema, Struct } from '@strapi/strapi';
 
-export interface ResumeEducation extends Schema.Component {
-  collectionName: 'components_resume_educations';
-  info: {
-    displayName: 'Education';
-    icon: 'globe';
-    description: '';
-  };
-  attributes: {
-    Degree: Attribute.String;
-    School: Attribute.String;
-    StartDate: Attribute.Date;
-    EndDate: Attribute.Date;
-    Gpa: Attribute.Decimal;
-    Bullets: Attribute.Component<'resume.experience-bullet', true>;
-    Graduated: Attribute.Boolean;
-  };
-}
-
-export interface ResumeExperienceBullet extends Schema.Component {
-  collectionName: 'components_resume_experience_bullets';
-  info: {
-    displayName: 'Bullets';
-    icon: 'bulletList';
-    description: '';
-  };
-  attributes: {
-    Text: Attribute.Text;
-  };
-}
-
-export interface ResumeExperience extends Schema.Component {
-  collectionName: 'components_resume_experiences';
+export interface BulletsExperience extends Struct.ComponentSchema {
+  collectionName: 'components_bullets_experiences';
   info: {
     displayName: 'Experience';
-    icon: 'feather';
-    description: '';
-  };
-  attributes: {
-    Position: Attribute.String;
-    Company: Attribute.String;
-    StartDate: Attribute.Date;
-    EndDate: Attribute.Date;
-    Bullets: Attribute.Component<'resume.experience-bullet', true>;
-    EmploymentType: Attribute.Enumeration<
-      ['Full-Time', 'Volunteer', 'Freelance', 'Contract', 'Part-Time']
-    >;
-    Location: Attribute.String;
-  };
-}
-
-export interface ResumePublications extends Schema.Component {
-  collectionName: 'components_resume_publications';
-  info: {
-    displayName: 'Publication';
-    icon: 'book';
-    description: '';
-  };
-  attributes: {
-    Citation: Attribute.String;
-  };
-}
-
-export interface ResumeSkills extends Schema.Component {
-  collectionName: 'components_resume_skills';
-  info: {
-    displayName: 'Skills';
-    icon: 'cube';
-  };
-  attributes: {
-    Skill: Attribute.String;
-  };
-}
-
-export interface SharedCardBullet extends Schema.Component {
-  collectionName: 'components_shared_card_bullets';
-  info: {
-    displayName: 'CardBullet';
     icon: 'bulletList';
-    description: '';
   };
   attributes: {
-    Title: Attribute.String;
-    Location: Attribute.String;
-    StartDate: Attribute.Date;
-    FontAwesomeIconClass: Attribute.String;
-    ShowDate: Attribute.Boolean;
+    Location: Schema.Attribute.String;
+    StartDate: Schema.Attribute.Date;
+    Title: Schema.Attribute.String;
+    Type: Schema.Attribute.Enumeration<['Work', 'Education']>;
   };
 }
 
-export interface SharedLink extends Schema.Component {
-  collectionName: 'components_shared_links';
+export interface BulletsSkill extends Struct.ComponentSchema {
+  collectionName: 'components_bullets_skills';
   info: {
-    displayName: 'Link';
-    icon: 'oneToOne';
-    description: '';
+    displayName: 'Skill';
+    icon: 'apps';
   };
   attributes: {
-    Text: Attribute.String;
-    Url: Attribute.String;
-    FontAwesomeIconClass: Attribute.String;
+    Color: Schema.Attribute.String;
+    Svg: Schema.Attribute.Text;
+    Title: Schema.Attribute.String;
+    Viewbox: Schema.Attribute.String;
   };
 }
 
-export interface SharedTechnologies extends Schema.Component {
-  collectionName: 'components_shared_technologies';
+export interface GeneralAboutSection extends Struct.ComponentSchema {
+  collectionName: 'components_general_about_sections';
   info: {
-    displayName: 'Technologies';
-    icon: 'chartBubble';
-    description: '';
+    displayName: 'About Section';
+    icon: 'emotionHappy';
   };
   attributes: {
-    Title: Attribute.String;
-    Color: Attribute.String;
-    Svg: Attribute.Text;
-    Viewbox: Attribute.String;
+    Content: Schema.Attribute.RichText;
+    Title: Schema.Attribute.String;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface Components {
-      'resume.education': ResumeEducation;
-      'resume.experience-bullet': ResumeExperienceBullet;
-      'resume.experience': ResumeExperience;
-      'resume.publications': ResumePublications;
-      'resume.skills': ResumeSkills;
-      'shared.card-bullet': SharedCardBullet;
-      'shared.link': SharedLink;
-      'shared.technologies': SharedTechnologies;
+export interface GeneralSocialLink extends Struct.ComponentSchema {
+  collectionName: 'components_general_social_links';
+  info: {
+    displayName: 'Social Link';
+    icon: 'discuss';
+  };
+  attributes: {
+    FontAwesomeIconClass: Schema.Attribute.String;
+    Link: Schema.Attribute.String;
+    Title: Schema.Attribute.String;
+  };
+}
+
+declare module '@strapi/strapi' {
+  export module Public {
+    export interface ComponentSchemas {
+      'bullets.experience': BulletsExperience;
+      'bullets.skill': BulletsSkill;
+      'general.about-section': GeneralAboutSection;
+      'general.social-link': GeneralSocialLink;
     }
   }
 }

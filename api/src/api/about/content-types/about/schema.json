@@ -4,19 +4,17 @@
   "info": {
     "singularName": "about",
     "pluralName": "abouts",
-    "displayName": "About",
-    "description": ""
+    "displayName": "About"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "AboutMe": {
-      "type": "blocks"
-    },
-    "AboutSite": {
-      "type": "blocks"
+    "AboutSections": {
+      "type": "component",
+      "component": "general.about-section",
+      "repeatable": true
     }
   }
 }

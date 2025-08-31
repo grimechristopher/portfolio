@@ -1,0 +1,66 @@
+version: '3'
+services:
+  portfolio:
+    container_name: portfolio-prod
+    image: portfolio-prod
+    build:
+      context: ./nuxt-client
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - server-network
+    env_file: ./nuxt-client/.env.production
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portfolio.rule=Host(`www.chrisgrime.com`) || Host(`chrisgrime.com`)
+      - traefik.http.routers.portfolio.entrypoints=websecure
+      - traefik.http.routers.portfolio.tls.certresolver=myresolver
+    volumes:
+      - ./public/uploads:/opt/app/.output/public/uploads
+
+  strapi:
+    container_name: strapi-prod
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    image: strapi-prod
+    restart: unless-stopped
+    env_file: .env.production
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_SCHEMA: ${DATABASE_SCHEMA}
+      DATABASE_SSL: ${DATABASE_SSL}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      APP_KEYS: ${APP_KEYS}
+      NODE_ENV: ${NODE_ENV}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+    volumes:
+      - ./api/config:/opt/app/config
+      - ./api/src:/opt/app/src
+      - ./api/package.json:/opt/package.json
+      - ./api/.env.production:/opt/app/.env
+      - ./api/public:/opt/app/public
+      - ./api/public/uploads:/opt/app/public/uploads
+    ports:
+      - "1337:1337"
+    networks:
+      - server-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.strapi.rule=Host(`strapi.chrisgrime.com`)
+      - traefik.http.routers.strapi.entrypoints=websecure
+      - traefik.http.routers.strapi.tls.certresolver=myresolver
+
+networks:
+  server-network:
+    external: true

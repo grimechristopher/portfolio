@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_bullets_skills",
+  "info": {
+    "displayName": "Skill",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Svg": {
+      "type": "text"
+    },
+    "Color": {
+      "type": "string"
+    },
+    "Viewbox": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -4,11 +4,10 @@
   "info": {
     "singularName": "global",
     "pluralName": "globals",
-    "displayName": "Global",
-    "description": ""
+    "displayName": "Global"
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
@@ -18,28 +17,30 @@
     "Tagline": {
       "type": "string"
     },
-    "SiteIcon": {
+    "Logo": {
       "type": "media",
       "multiple": false,
-      "required": false,
       "allowedTypes": [
         "images"
       ]
     },
+    "ResumeLink": {
+      "type": "string"
+    },
     "SocialLinks": {
       "type": "component",
-      "repeatable": true,
-      "component": "shared.link"
+      "component": "general.social-link",
+      "repeatable": true
     },
-    "Bullets": {
+    "Experiences": {
       "type": "component",
-      "repeatable": true,
-      "component": "shared.card-bullet"
+      "component": "bullets.experience",
+      "repeatable": true
     },
-    "Technologies": {
+    "Skills": {
       "type": "component",
-      "repeatable": true,
-      "component": "shared.technologies"
+      "component": "bullets.skill",
+      "repeatable": true
     }
   }
 }

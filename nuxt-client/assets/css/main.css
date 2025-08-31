@@ -1,28 +1,836 @@
 :root {
-  --bg: #202022;
+  /* Original project colors */
+  --bg: #fafbfb;
+  --hero-bg: #202022;
   --text: #ffffff;
   --cg-blue: #234e70;
   --cg-blue-hover: #1a3a54;
+  --cg-blue-light: #2d5f85;
+  --accent-color: var(--cg-blue);
+  --accent-hover: var(--cg-blue-hover);
+  --header-bg: rgba(32, 32, 34, 0.95);
+  --footer-bg: var(--bg);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-muted-original: rgba(255, 255, 255, 0.7);
+
+  /* Style Guide Base - Typography */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  
+  /* Style Guide Base - Colors */
+  --text-primary: #303032;
+  --text-secondary: #504f52;
+  --text-muted: #706f72;
+  --background: #FAFBFB;
+  --surface: #ffffff;
+  --accent: #4285F4;
+  --accent-hover: #3367d6;
+  --alert-red: #e53e3e;
+  --border: #e0e0e0;
 }
 
-*, *::before, *::after {
+body {
+  background-color: var(--hero-bg);
+}
+
+/* Base styles from style guide */
+* {
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body { 
+/* Base typography and layout - Global styles */
+.base-typography, 
+.style-guide-base {
+  font-family: var(--font-body);
+  line-height: 1.8;
+  color: var(--text-primary);
+  background: var(--background);
+  text-shadow: 0 1px 0 #ffffff;
+  font-size: 18px;
   margin: 0;
-  font-family: "Open Sans", sans-serif;
-  
-  height: 100dvh;
+  padding: 0;
 }
 
-main {
-  min-height: 100dvh;
-  color: var(--bg);
-  font-size: 16pt;
+/* Content width constraints - Global styles */
+.content-container main, 
+.content-container header, 
+.content-container nav, 
+.content-container footer,
+.style-guide-base main, 
+.style-guide-base header, 
+.style-guide-base nav, 
+.style-guide-base footer {
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+
+/* Consistent line heights */
+.style-guide-base p, 
+.style-guide-base li, 
+.style-guide-base dd, 
+.style-guide-base blockquote, 
+.style-guide-base address {
+  line-height: 1.8;
+}
+
+.style-guide-base h1, 
+.style-guide-base h2, 
+.style-guide-base h3, 
+.style-guide-base h4, 
+.style-guide-base h5, 
+.style-guide-base h6 {
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+}
+
+/* Links */
+.style-guide-base a {
+  color: var(--cg-blue);
+  text-decoration: none;
+  border-bottom: 1px solid var(--cg-blue);
+  transition: all 0.2s ease;
+}
+
+.style-guide-base a:visited {
+  color: #7c3aed;
+  border-bottom-color: #7c3aed;
+}
+
+.style-guide-base a:hover {
+  color: var(--cg-blue-hover);
+  border-bottom-color: var(--cg-blue-hover);
+}
+
+.style-guide-base a:active {
+  color: #1a56db;
+  border-bottom-color: #1a56db;
+}
+
+/* Simple, clean prose styling */
+.prose, .content {
+  line-height: 1.6;
+  color: #333;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6,
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+  color: #222;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose h1, .content h1 { font-size: 1.875rem; }
+.prose h2, .content h2 { font-size: 1.5rem; }
+.prose h3, .content h3 { font-size: 1.25rem; }
+.prose h4, .content h4 { font-size: 1.125rem; }
+
+.prose p, .content p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.prose a, .content a {
+  color: var(--cg-blue);
+  text-decoration: underline;
+}
+
+.prose a:hover, .content a:hover {
+  color: var(--cg-blue-hover);
+}
+
+.prose strong, .content strong {
+  color: #222;
+  font-weight: 600;
+}
+
+.prose ul, .prose ol, .content ul, .content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose li, .content li {
+  margin-bottom: 0.25rem;
+  color: #555;
+}
+
+.prose blockquote, .content blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--cg-blue);
+  background-color: #f8f9fa;
+  font-style: italic;
+  color: #666;
+}
+
+.prose code, .content code {
+  background-color: #f1f3f4;
+  color: #d73a49;
+  padding: 0.125rem 0.25rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.prose pre, .content pre {
+  background-color: #f6f8fa;
+  color: #24292e;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border: 1px solid #e1e4e8;
+}
+
+.prose pre code, .content pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Form Styling - from style guide */
+.style-guide-base fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.style-guide-base legend {
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0 0.5rem;
+}
+
+.style-guide-base label {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Base input styling */
+.style-guide-base input, 
+.style-guide-base textarea, 
+.style-guide-base select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: inherit;
   line-height: 1.5;
+  background: var(--surface);
+  transition: all 0.2s ease;
+}
+
+.style-guide-base input:focus, 
+.style-guide-base textarea:focus, 
+.style-guide-base select:focus {
+  outline: none;
+  border-color: var(--cg-blue);
+  box-shadow: 0 0 0 3px rgba(35, 78, 112, 0.1);
+}
+
+.style-guide-base input:hover, 
+.style-guide-base textarea:hover, 
+.style-guide-base select:hover {
+  border-color: var(--text-muted);
+}
+
+/* Checkbox and radio styling */
+.style-guide-base input[type="checkbox"], 
+.style-guide-base input[type="radio"] {
+  width: auto;
+  margin-right: 0.5rem;
+  accent-color: var(--cg-blue);
+  transform: scale(1.2);
+}
+
+/* Range slider */
+.style-guide-base input[type="range"] {
+  height: 6px;
+  background: var(--border);
+  border: none;
+  border-radius: 3px;
+  padding: 0;
+}
+
+/* Color picker */
+.style-guide-base input[type="color"] {
+  height: 50px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+/* File input */
+.style-guide-base input[type="file"] {
+  padding: 0.5rem;
+  background: var(--background);
+  border: 2px dashed var(--text-muted);
+}
+
+.style-guide-base input[type="file"]:hover {
+  background: var(--surface);
+  border-color: var(--text-secondary);
+}
+
+/* Textarea */
+.style-guide-base textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Button styling */
+.style-guide-base button, 
+.style-guide-base input[type="submit"], 
+.style-guide-base input[type="reset"], 
+.style-guide-base input[type="button"] {
+  background: var(--cg-blue);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 0.75rem;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.style-guide-base button:hover, 
+.style-guide-base input[type="submit"]:hover, 
+.style-guide-base input[type="button"]:hover {
+  background: var(--cg-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.style-guide-base input[type="reset"] {
+  background: transparent;
+  color: var(--alert-red);
+  border: 2px solid var(--alert-red);
+  box-shadow: none;
+}
+
+.style-guide-base input[type="reset"]:hover {
+  background: var(--alert-red);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(229, 62, 62, 0.2);
+}
+
+/* Progress and meter */
+.style-guide-base progress, 
+.style-guide-base meter {
+  width: 100%;
+  height: 20px;
+  border: none;
+  border-radius: 10px;
+  background: var(--border);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.style-guide-base progress::-webkit-progress-bar {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+.style-guide-base progress::-webkit-progress-value {
+  background: var(--cg-blue);
+  border-radius: 10px;
+}
+
+.style-guide-base progress::-moz-progress-bar {
+  background: var(--cg-blue);
+  border-radius: 10px;
+}
+
+.style-guide-base meter::-webkit-meter-bar {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+.style-guide-base meter::-webkit-meter-optimum-value {
+  background: var(--cg-blue);
+  border-radius: 10px;
+}
+
+.style-guide-base meter::-webkit-meter-suboptimum-value {
+  background: var(--cg-blue);
+  border-radius: 10px;
+}
+
+.style-guide-base meter::-webkit-meter-even-less-good-value {
+  background: var(--cg-blue);
+  border-radius: 10px;
+}
+
+.style-guide-base meter::-moz-meter-bar {
+  background: var(--cg-blue);
+  border-radius: 10px;
+}
+
+/* Details/Summary */
+.style-guide-base details {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.style-guide-base details[open] {
+  border-color: var(--cg-blue);
+  box-shadow: 0 0 0 3px rgba(35, 78, 112, 0.1);
+}
+
+.style-guide-base summary {
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  margin: -0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  list-style: none;
+}
+
+.style-guide-base summary::-webkit-details-marker {
+  display: none;
+}
+
+.style-guide-base summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.2s ease;
+  color: var(--cg-blue);
+}
+
+.style-guide-base details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.style-guide-base summary:hover {
+  background: var(--background);
+  color: var(--cg-blue);
+}
+
+.style-guide-base details p {
+  margin: 1rem 0 0 0;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* Output */
+.style-guide-base output {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  background: rgba(35, 78, 112, 0.1);
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--cg-blue);
+  margin-left: 0.75rem;
+  border: 2px solid rgba(35, 78, 112, 0.2);
+}
+
+/* Label overrides for inline elements */
+.style-guide-base label:has(input[type="checkbox"]),
+.style-guide-base label:has(input[type="radio"]) {
+  display: inline;
+  font-weight: normal;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Tables */
+.style-guide-base table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  background: var(--surface);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.style-guide-base caption {
+  caption-side: top;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.style-guide-base th,
+.style-guide-base td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.style-guide-base th {
+  background: var(--background);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.style-guide-base tr:hover {
+  background: var(--background);
+}
+
+/* Horizontal rule */
+.style-guide-base hr {
+  border: none;
+  border-top: 2px solid var(--border);
+  margin: 2rem 0;
+}
+
+/* Address */
+.style-guide-base address {
+  font-style: normal;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Basic reset for style guide */
+.style-guide-base h1, 
+.style-guide-base h2, 
+.style-guide-base h3, 
+.style-guide-base h4, 
+.style-guide-base h5, 
+.style-guide-base h6, 
+.style-guide-base p, 
+.style-guide-base ul, 
+.style-guide-base ol, 
+.style-guide-base dl, 
+.style-guide-base blockquote, 
+.style-guide-base pre, 
+.style-guide-base table {
+  margin-bottom: 1.5rem;
+}
+
+.style-guide-base blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid var(--cg-blue);
+  background: var(--background);
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.style-guide-base blockquote cite {
+  display: block;
+  margin-top: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.style-guide-base code {
+  background: var(--background);
+  color: var(--cg-blue);
+  padding: 0.125rem 0.25rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.style-guide-base pre {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.style-guide-base pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+.style-guide-base mark {
+  background: rgba(35, 78, 112, 0.2);
+  color: var(--text-primary);
+  padding: 0.125rem;
+  border-radius: 2px;
+}
+
+.style-guide-base small {
+  font-size: 0.85em;
+  color: var(--text-muted);
+}
+
+.style-guide-base sup,
+.style-guide-base sub {
+  font-size: 0.75em;
+}
+
+/* ==============================================
+   GLOBAL UTILITY CLASSES - Use on any page
+   ============================================== */
+
+/* Page layout utilities */
+.page-container {
+  font-family: var(--font-body);
+  line-height: 1.8;
+  color: var(--text-primary);
+  background: var(--background);
+  text-shadow: 0 1px 0 #ffffff;
+  font-size: 18px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+}
+
+.page-container main, 
+.page-container header, 
+.page-container nav, 
+.page-container footer {
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+
+/* Typography utilities */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+
+/* Modern form styling - Global */
+.modern-form fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.modern-form legend {
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0 0.5rem;
+}
+
+.modern-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.modern-form input, 
+.modern-form textarea, 
+.modern-form select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.5;
+  background: var(--surface);
+  transition: all 0.2s ease;
+}
+
+.modern-form input:focus, 
+.modern-form textarea:focus, 
+.modern-form select:focus {
+  outline: none;
+  border-color: var(--cg-blue);
+  box-shadow: 0 0 0 3px rgba(35, 78, 112, 0.1);
+}
+
+.modern-form input:hover, 
+.modern-form textarea:hover, 
+.modern-form select:hover {
+  border-color: var(--text-muted);
+}
+
+/* Modern button styling - Global */
+.btn, .modern-btn {
+  background: var(--cg-blue);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 0.75rem;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover, .modern-btn:hover {
+  background: var(--cg-blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-reset {
+  background: transparent;
+  color: var(--alert-red);
+  border: 2px solid var(--alert-red);
+  box-shadow: none;
+}
+
+.btn-reset:hover {
+  background: var(--alert-red);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(229, 62, 62, 0.2);
+}
+
+/* Modern link styling - Global */
+.link-styled {
+  color: var(--cg-blue);
+  text-decoration: none;
+  border-bottom: 1px solid var(--cg-blue);
+  transition: all 0.2s ease;
+}
+
+.link-styled:hover {
+  color: var(--cg-blue-hover);
+  border-bottom-color: var(--cg-blue-hover);
+}
+
+/* Modern tables - Global */
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  background: var(--surface);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modern-table th,
+.modern-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.modern-table th {
+  background: var(--background);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.modern-table tr:hover {
+  background: var(--background);
+}
+
+/* Progress bars - Global */
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  border: none;
+  border-radius: 10px;
+  background: var(--border);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.progress-bar::-webkit-progress-bar {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+.progress-bar::-webkit-progress-value {
+  background: var(--cg-blue);
+  border-radius: 10px;
+}
+
+.progress-bar::-moz-progress-bar {
+  background: var(--cg-blue);
+  border-radius: 10px;
+}
+
+/* Details/Summary - Global */
+.collapsible {
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.collapsible[open] {
+  border-color: var(--cg-blue);
+  box-shadow: 0 0 0 3px rgba(35, 78, 112, 0.1);
+}
+
+.collapsible summary {
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  margin: -0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  list-style: none;
+}
+
+.collapsible summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.2s ease;
+  color: var(--cg-blue);
+}
+
+.collapsible[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.collapsible summary:hover {
+  background: var(--background);
+  color: var(--cg-blue);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .page-container main, 
+  .page-container header, 
+  .page-container nav, 
+  .page-container footer,
+  .content-container main, 
+  .content-container header, 
+  .content-container nav, 
+  .content-container footer,
+  .style-guide-base main, 
+  .style-guide-base header, 
+  .style-guide-base nav, 
+  .style-guide-base footer {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .page-container,
+  .style-guide-base {
+    margin: 1rem auto;
+    padding: 0 1rem;
+  }
 }
