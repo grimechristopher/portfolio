@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "seos",
+  "info": {
+    "singularName": "seo",
+    "pluralName": "seos",
+    "displayName": "Seo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "SiteName": {
+      "type": "string"
+    },
+    "SiteTagline": {
+      "type": "string"
+    },
+    "SiteDescription": {
+      "type": "text"
+    },
+    "SiteUrl": {
+      "type": "string"
+    },
+    "DefaultKeywords": {
+      "type": "string"
+    },
+    "AuthorName": {
+      "type": "string"
+    }
+  }
+}

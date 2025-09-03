@@ -79,12 +79,6 @@ onMounted(() => {
     setTimeout(processExternalLinks, 1000)
   })
 })
-
-// SEO
-useSeoMeta({
-  title: 'About Me',
-  description: 'Learn more about me and my background'
-})
 </script>
 
 <style scoped>

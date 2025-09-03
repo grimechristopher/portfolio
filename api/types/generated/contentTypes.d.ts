@@ -432,6 +432,36 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiSeoSeo extends Struct.SingleTypeSchema {
+  collectionName: 'seos';
+  info: {
+    displayName: 'Seo';
+    pluralName: 'seos';
+    singularName: 'seo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    AuthorName: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    DefaultKeywords: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::seo.seo'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    SiteDescription: Schema.Attribute.Text;
+    SiteName: Schema.Attribute.String;
+    SiteTagline: Schema.Attribute.String;
+    SiteUrl: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -943,6 +973,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
       'api::global.global': ApiGlobalGlobal;
+      'api::seo.seo': ApiSeoSeo;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
