@@ -1,29 +1,29 @@
-name: Deploy Portfolio
+name: Auto Deploy Portfolio
 
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
+  workflow_dispatch:  # Manual trigger button
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted  # Runs directly on your server
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout latest code
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+      - name: Make deploy script executable
+        run: chmod +x deploy-production.sh
 
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+      - name: Run deployment
+        run: ./deploy-production.sh
 
-      - name: Deploy via SSH
+      - name: Show final status
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'bash /home/deploy/portfolio/deploy-production.sh'
+          echo "🎉 Auto-deployment completed!"
+          echo "📊 Container status:"
+          docker-compose -f docker-compose.production.yml ps
+          echo ""
+          echo "🌐 Your sites:"
+          echo "   Portfolio: https://chrisgrime.com"
+          echo "   Strapi: https://strapi.chrisgrime.com/admin"
