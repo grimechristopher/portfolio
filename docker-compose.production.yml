@@ -9,8 +9,8 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-    networks:
-      - server-network
+    # networks:
+    #   - server-network
     env_file: ./nuxt-client/.env.production
     volumes:
       - ./public/uploads:/opt/app/.output/public/uploads
@@ -48,9 +48,9 @@ services:
       - ./api/public/uploads:/opt/app/public/uploads
     ports:
       - "1337:1337"
-    networks:
-      - server-network
+    # networks:
+    #   - server-network
 
-networks:
-  server-network:
-    external: true
+# networks:
+#   server-network:
+#     external: true
