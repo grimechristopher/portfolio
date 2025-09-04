@@ -9,13 +9,13 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-    networks:
-      - server-network
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.portfolio.rule=Host(`www.chrisgrime.com`) || Host(`chrisgrime.com`)
-      - traefik.http.routers.portfolio.entrypoints=websecure
-      - traefik.http.routers.portfolio.tls.certresolver=myresolver
+    # networks:
+    #   - server-network
+    # labels:
+    #   - traefik.enable=true
+    #   - traefik.http.routers.portfolio.rule=Host(`www.chrisgrime.com`) || Host(`chrisgrime.com`)
+    #   - traefik.http.routers.portfolio.entrypoints=websecure
+    #   - traefik.http.routers.portfolio.tls.certresolver=myresolver
     volumes:
       - ./public/uploads:/opt/app/.output/public/uploads
 
@@ -49,14 +49,14 @@ services:
       - ./public/uploads:/opt/app/public/uploads
     ports:
       - "1337:1337"
-    networks:
-      - server-network
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.strapi.rule=Host(`strapi.chrisgrime.com`)
-      - traefik.http.routers.strapi.entrypoints=websecure
-      - traefik.http.routers.strapi.tls.certresolver=myresolver
+    # networks:
+    #   - server-network
+    # labels:
+    #   - traefik.enable=true
+    #   - traefik.http.routers.strapi.rule=Host(`strapi.chrisgrime.com`)
+    #   - traefik.http.routers.strapi.entrypoints=websecure
+    #   - traefik.http.routers.strapi.tls.certresolver=myresolver
 
-networks:
-  server-network:
-    external: true
+# networks:
+#   server-network:
+#     external: true
