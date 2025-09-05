@@ -1,4 +1,3 @@
-version: '3'
 services:
   portfolio:
     container_name: portfolio-prod
@@ -6,17 +5,15 @@ services:
     build:
       context: ./nuxt-client
       dockerfile: Dockerfile
-      args:
-        - SUPABASE_URL=${SUPABASE_URL:-https://supabase.chrisgrime.com}
-        - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcSI6InN1cGFiYXNlIiwiaWF0IjoxNzU2MTkxNjAwLCJleHAiOjE5MTM5NTgwMDB9.m6ZSBvlHqBJpNPSeIfnXm35vcxfYThFSQj3K4qw0tTM}
     restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=${NODE_ENV:-production}
+      - NUXT_PUBLIC_BASE_URL=${NUXT_PUBLIC_BASE_URL}
+      - NUXT_PUBLIC_STRAPI_URL=${NUXT_PUBLIC_STRAPI_URL}
     volumes:
-      - portfolio-uploads:/opt/app/.output/public/uploads
-
+      - /mnt/homeserver/portfolio/uploads:/opt/app/.output/public/uploads
+  
   strapi:
     container_name: strapi-prod
     build: 
@@ -25,40 +22,29 @@ services:
     image: strapi-prod
     restart: unless-stopped
     environment:
-      DATABASE_CLIENT: ${DATABASE_CLIENT}
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USERNAME: ${DATABASE_USERNAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_SCHEMA: ${DATABASE_SCHEMA}
-      DATABASE_SSL: ${DATABASE_SSL}
-      JWT_SECRET: ${JWT_SECRET}
-      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
-      APP_KEYS: ${APP_KEYS}
-      NODE_ENV: ${NODE_ENV}
-      API_TOKEN_SALT: ${API_TOKEN_SALT}
-      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
-      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      - DATABASE_CLIENT=${DATABASE_CLIENT}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_SCHEMA=${DATABASE_SCHEMA}
+      - DATABASE_SSL=${DATABASE_SSL}
+      - NODE_ENV=${NODE_ENV}
+      - JWT_SECRET=${JWT_SECRET}
+      - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET}
+      - APP_KEYS=${APP_KEYS}
+      - API_TOKEN_SALT=${API_TOKEN_SALT}
+      - TRANSFER_TOKEN_SALT=${TRANSFER_TOKEN_SALT}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
     volumes:
-      - strapi-uploads:/opt/app/public/uploads
+      - /mnt/homeserver/portfolio/strapi-uploads:/opt/app/public/uploads
     ports:
       - "1337:1337"
+    networks:
+      - default
+      - supabase_default
 
-volumes:
-  portfolio-uploads:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/chris/Documents/Github/portfolio/public/uploads
-  strapi-uploads:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind  
-      device: /home/chris/Documents/Github/portfolio/api/public/uploads
-
-# networks:
-#   server-network:
-#     external: true
+networks:
+  supabase_default:
+    external: true
