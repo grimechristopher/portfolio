@@ -8,15 +8,62 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted  # Runs directly on your server
+    environment: production  # Use GitHub environment for secrets
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v4
 
+      - name: Create environment variables file
+        run: |
+          echo "Creating environment variables from GitHub secrets..."
+          cat > .env.deploy << EOF
+          DATABASE_CLIENT=${{ secrets.DATABASE_CLIENT }}
+          DATABASE_HOST=${{ secrets.DATABASE_HOST }}
+          DATABASE_PORT=${{ secrets.DATABASE_PORT }}
+          DATABASE_NAME=${{ secrets.DATABASE_NAME }}
+          DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_SCHEMA=${{ secrets.DATABASE_SCHEMA }}
+          DATABASE_SSL=${{ secrets.DATABASE_SSL }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}
+          APP_KEYS=${{ secrets.APP_KEYS }}
+          NODE_ENV=production
+          API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}
+          TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
+          ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+          SUPABASE_URL=${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
+          EOF
+
       - name: Make deploy script executable
         run: chmod +x deploy-production.sh
 
-      - name: Run deployment
+      - name: Run deployment with environment variables
+        env:
+          DATABASE_CLIENT: ${{ secrets.DATABASE_CLIENT }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_SCHEMA: ${{ secrets.DATABASE_SCHEMA }}
+          DATABASE_SSL: ${{ secrets.DATABASE_SSL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          ADMIN_JWT_SECRET: ${{ secrets.ADMIN_JWT_SECRET }}
+          APP_KEYS: ${{ secrets.APP_KEYS }}
+          NODE_ENV: production
+          API_TOKEN_SALT: ${{ secrets.API_TOKEN_SALT }}
+          TRANSFER_TOKEN_SALT: ${{ secrets.TRANSFER_TOKEN_SALT }}
+          ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: ./deploy-production.sh
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -f .env.deploy
 
       - name: Show final status
         run: |

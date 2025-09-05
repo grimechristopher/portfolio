@@ -6,14 +6,16 @@ services:
     build:
       context: ./nuxt-client
       dockerfile: Dockerfile
+      args:
+        - SUPABASE_URL=${SUPABASE_URL:-https://supabase.chrisgrime.com}
+        - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY:-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcSI6InN1cGFiYXNlIiwiaWF0IjoxNzU2MTkxNjAwLCJleHAiOjE5MTM5NTgwMDB9.m6ZSBvlHqBJpNPSeIfnXm35vcxfYThFSQj3K4qw0tTM}
     restart: unless-stopped
     ports:
       - "3000:3000"
-    # networks:
-    #   - server-network
-    env_file: ./nuxt-client/.env.production
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
     volumes:
-      - ./public/uploads:/opt/app/.output/public/uploads
+      - portfolio-uploads:/opt/app/.output/public/uploads
 
   strapi:
     container_name: strapi-prod
@@ -22,7 +24,6 @@ services:
       dockerfile: Dockerfile
     image: strapi-prod
     restart: unless-stopped
-    env_file: .env.production
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
       DATABASE_HOST: ${DATABASE_HOST}
@@ -40,16 +41,23 @@ services:
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
     volumes:
-      - ./api/config:/opt/app/config
-      - ./api/src:/opt/app/src
-      - ./api/package.json:/opt/package.json
-      - ./api/.env.production:/opt/app/.env
-      - ./api/public:/opt/app/public
-      - ./api/public/uploads:/opt/app/public/uploads
+      - strapi-uploads:/opt/app/public/uploads
     ports:
       - "1337:1337"
-    # networks:
-    #   - server-network
+
+volumes:
+  portfolio-uploads:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/chris/Documents/Github/portfolio/public/uploads
+  strapi-uploads:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind  
+      device: /home/chris/Documents/Github/portfolio/api/public/uploads
 
 # networks:
 #   server-network:
