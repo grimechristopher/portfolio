@@ -1,20 +1,17 @@
 # Multi-stage build for production
-
 # Build stage
 FROM node:20-alpine as builder
-
 # Set working directory
 WORKDIR /opt/app
-
 # Copy package files
 COPY package*.json ./
-
 # Install dependencies (including dev dependencies for building)
 RUN npm ci && npm cache clean --force
-
 # Copy source code
 COPY . .
-
+# Set build-time environment variables for Supabase
+ENV SUPABASE_URL=https://supabase.chrisgrime.com
+ENV SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcSI6InN1cGFiYXNlIiwiaWF0IjoxNzU2MTkxNjAwLCJleHAiOjE5MTM5NTgwMDB9.m6ZSBvlHqBJpNPSeIfnXm35vcxfYThFSQj3K4qw0tTM
 # Build the application
 RUN npm run build
 
