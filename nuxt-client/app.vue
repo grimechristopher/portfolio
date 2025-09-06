@@ -11,10 +11,10 @@ import type { SeoContent } from '~/types/seo'
 import type { StrapiResponse } from '~/types/strapi'
 
 const route = useRoute()
-const { find } = useStrapi()
+const { findOne } = useStrapi()
 
-// Fetch global SEO data from Strapi (single type GlobalSeo)
-const seoResponse = await find('Seo').catch(() => null) as StrapiResponse<SeoContent> | null;
+// Fetch global SEO data from Strapi (single type)
+const seoResponse = await findOne('seo', '').catch(() => null) as StrapiResponse<SeoContent> | null;
 const seo = seoResponse?.data as SeoContent;
 console.log("SEO data:", seo);
 useHead(() => {

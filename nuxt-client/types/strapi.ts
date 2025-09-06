@@ -82,6 +82,7 @@ export interface GlobalContent {
   SocialLinks: SocialLink[]
   Experiences: Experience[]
   Skills: Skill[]
+  ResumeJson: JSON
 }
 
 export interface SocialLink {

@@ -421,6 +421,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     Logo: Schema.Attribute.Media<'images'>;
     publishedAt: Schema.Attribute.DateTime;
+    ResumeJson: Schema.Attribute.JSON;
     ResumeLink: Schema.Attribute.String;
     Skills: Schema.Attribute.Component<'bullets.skill', true>;
     SocialLinks: Schema.Attribute.Component<'general.social-link', true>;
@@ -451,6 +452,8 @@ export interface ApiSeoSeo extends Struct.SingleTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::seo.seo'> &
       Schema.Attribute.Private;
+    ogDescription: Schema.Attribute.Text;
+    ogTitle: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     SiteDescription: Schema.Attribute.Text;
     SiteName: Schema.Attribute.String;

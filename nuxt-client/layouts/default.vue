@@ -4,7 +4,7 @@
     <div class="above-fold">
       <!-- Resume button in top right corner -->
       <div class="resume-button-container" v-show="!isHeaderSticky">
-        <button @click="showResume = !showResume" class="resume-button">Resume</button>
+        <NuxtLink to="/resume" class="resume-button">Resume</NuxtLink>
       </div>
       
       <section class="hero-section">
@@ -22,12 +22,12 @@
             <a href="/">Home</a>
           </div>
           <!-- Resume button appears in navbar when sticky (on the right) -->
-          <button 
+          <NuxtLink 
             v-show="isHeaderSticky" 
-            @click="showResume = !showResume" 
+            to="/resume" 
             class="resume-button navbar-resume-button">
             Resume
-          </button>
+          </NuxtLink>
         </nav>
       </header>
     </div>
@@ -37,10 +37,6 @@
     <main>
       <slot />
     </main>
-
-    <div v-if="showResume">
-      <ResumeComponent @close="showResume = false" />
-    </div>
   </div>
 </template>
 
@@ -48,7 +44,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const header = ref<HTMLElement>()
-const showResume = ref(false)
 const isHeaderSticky = ref(false)
 
 // Handle scroll behavior for header
@@ -185,6 +180,10 @@ main {
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar-resume-button:hover {

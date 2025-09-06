@@ -28,6 +28,12 @@
     },
     "AuthorName": {
       "type": "string"
+    },
+    "ogTitle": {
+      "type": "string"
+    },
+    "ogDescription": {
+      "type": "text"
     }
   }
 }
