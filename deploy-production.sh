@@ -50,10 +50,6 @@ docker-compose -f docker-compose.production.yml down
 echo "🔨 Building and starting production containers..."
 docker-compose -f docker-compose.production.yml up --build -d
 
-# Clean up env file
-echo "🧹 Cleaning up environment file..."
-rm -f .env
-
 # Show status
 echo "📊 Container status:"
 docker-compose -f docker-compose.production.yml ps
