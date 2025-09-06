@@ -1,18 +1,17 @@
 name: Auto Deploy Portfolio
-
 on:
   push:
     branches: [main]
-  workflow_dispatch:  # Manual trigger button
+  workflow_dispatch: # Manual trigger button
 
 jobs:
   deploy:
-    runs-on: self-hosted  # Runs directly on your server
-    environment: production  # Use GitHub environment for secrets
+    runs-on: self-hosted # Runs directly on your server
+    environment: production # Use GitHub environment for secrets
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v4
-
+        
       - name: Create environment variables file
         run: |
           echo "Creating environment variables from GitHub secrets..."
@@ -33,12 +32,14 @@ jobs:
           TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
           ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
           SUPABASE_URL=${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}
+          NUXT_PUBLIC_BASE_URL=${{ secrets.NUXT_PUBLIC_BASE_URL }}
+          NUXT_PUBLIC_STRAPI_URL=${{ secrets.NUXT_PUBLIC_STRAPI_URL }}
           EOF
-
+          
       - name: Make deploy script executable
         run: chmod +x deploy-production.sh
-
+        
       - name: Run deployment with environment variables
         env:
           DATABASE_CLIENT: ${{ secrets.DATABASE_CLIENT }}
@@ -57,14 +58,16 @@ jobs:
           TRANSFER_TOKEN_SALT: ${{ secrets.TRANSFER_TOKEN_SALT }}
           ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          NUXT_PUBLIC_BASE_URL: ${{ secrets.NUXT_PUBLIC_BASE_URL }}
+          NUXT_PUBLIC_STRAPI_URL: ${{ secrets.NUXT_PUBLIC_STRAPI_URL }}
         run: ./deploy-production.sh
-
+        
       - name: Cleanup
         if: always()
         run: |
           rm -f .env.deploy
-
+          
       - name: Show final status
         run: |
           echo "🎉 Auto-deployment completed!"
@@ -72,5 +75,5 @@ jobs:
           docker-compose -f docker-compose.production.yml ps
           echo ""
           echo "🌐 Your sites:"
-          echo "   Portfolio: https://chrisgrime.com"
-          echo "   Strapi: https://strapi.chrisgrime.com/admin"
+          echo "  Portfolio: https://chrisgrime.com"
+          echo "  Strapi: https://strapi.chrisgrime.com/admin"
