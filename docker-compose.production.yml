@@ -5,6 +5,12 @@ services:
     build:
       context: ./nuxt-client
       dockerfile: Dockerfile
+      args:
+        SUPABASE_URL: ${SUPABASE_URL}
+        SUPABASE_KEY: ${SUPABASE_KEY}
+        NUXT_PUBLIC_BASE_URL: ${NUXT_PUBLIC_BASE_URL}
+        NUXT_PUBLIC_STRAPI_URL: ${NUXT_PUBLIC_STRAPI_URL}
+        NODE_ENV: ${NODE_ENV}
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -19,7 +25,7 @@ services:
   
   strapi:
     container_name: strapi-prod
-    build: 
+    build:
       context: ./api
       dockerfile: Dockerfile
     image: strapi-prod

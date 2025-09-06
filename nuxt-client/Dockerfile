@@ -4,19 +4,30 @@ FROM node:20-alpine as builder
 
 # Accept build arguments
 ARG SUPABASE_URL
-ARG SUPABASE_ANON_KEY
+ARG SUPABASE_KEY
+ARG NUXT_PUBLIC_BASE_URL
+ARG NUXT_PUBLIC_STRAPI_URL
+ARG NODE_ENV
 
 # Set working directory
 WORKDIR /opt/app
+
 # Copy package files
 COPY package*.json ./
+
 # Install dependencies (including dev dependencies for building)
 RUN npm ci && npm cache clean --force
+
 # Copy source code
 COPY . .
+
 # Set build-time environment variables
 ENV SUPABASE_URL=${SUPABASE_URL}
-ENV SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+ENV SUPABASE_KEY=${SUPABASE_KEY}
+ENV NUXT_PUBLIC_BASE_URL=${NUXT_PUBLIC_BASE_URL}
+ENV NUXT_PUBLIC_STRAPI_URL=${NUXT_PUBLIC_STRAPI_URL}
+ENV NODE_ENV=${NODE_ENV}
+
 # Build the application
 RUN npm run build
 
