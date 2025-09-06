@@ -833,4 +833,22 @@ body {
     margin: 1rem auto;
     padding: 0 1rem;
   }
+  
+  /* Prevent mobile scrolling issues */
+  html, body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Improve touch targets */
+  button, 
+  [role="button"], 
+  input[type="submit"], 
+  input[type="button"], 
+  .nav-link,
+  .resume-button {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
 }

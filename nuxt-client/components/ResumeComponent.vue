@@ -179,11 +179,12 @@ const decodeHtml = (html: string) => {
 .resume-container {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: #000;
   display: flex;
   flex-direction: column;
   padding-top: 80px; /* Account for fixed header */
+  overflow: hidden;
 }
 
 .loading-spinner {
@@ -196,6 +197,8 @@ const decodeHtml = (html: string) => {
   align-items: center;
   justify-content: center;
   z-index: 1001;
+  padding: 2rem;
+  text-align: center;
 }
 
 .error-message {
@@ -210,6 +213,8 @@ const decodeHtml = (html: string) => {
   text-align: center;
   color: white;
   z-index: 1001;
+  padding: 2rem;
+  max-width: 90%;
 }
 
 .error-message h2 {
@@ -260,9 +265,11 @@ const decodeHtml = (html: string) => {
 
 .resume-iframe {
   width: 100%;
-  flex: 1;
+  height: calc(100vh - 80px);
   border: none;
   transition: opacity 0.3s ease;
+  min-height: 0;
+  flex: 1;
 }
 
 .iframe-hidden {
@@ -286,6 +293,116 @@ const decodeHtml = (html: string) => {
 @media (max-width: 768px) {
   .resume-container {
     padding-top: 70px; /* Account for smaller mobile header */
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .resume-iframe {
+    height: calc(100vh - 70px);
+    width: 100vw;
+  }
+  
+  .loading-spinner {
+    padding: 1rem;
+  }
+  
+  .loading-spinner p {
+    font-size: 16px;
+    margin-top: 15px;
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border-width: 4px;
+  }
+  
+  .error-message {
+    padding: 1rem;
+    max-width: 95%;
+  }
+  
+  .error-message h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .error-message p {
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .back-link {
+    padding: 12px 24px;
+    font-size: 16px;
+    min-height: 44px; /* Touch-friendly size */
+  }
+}
+
+/* Additional mobile fixes for iframe */
+@media (max-width: 768px) {
+  /* Prevent iframe zoom and scrolling issues */
+  .resume-iframe {
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+  }
+}
+
+/* Fix for very small screens */
+@media (max-width: 480px) {
+  .resume-container {
+    padding-top: 60px;
+  }
+  
+  .resume-iframe {
+    height: calc(100vh - 60px);
+  }
+  
+  .loading-spinner {
+    padding: 0.5rem;
+  }
+  
+  .error-message {
+    padding: 0.5rem;
+    max-width: 98%;
+  }
+  
+  .error-message h2 {
+    font-size: 1.25rem;
+  }
+  
+  .error-message p {
+    font-size: 13px;
+  }
+}
+
+/* Landscape orientation fixes */
+@media (max-width: 768px) and (orientation: landscape) {
+  .resume-container {
+    padding-top: 60px;
+  }
+  
+  .resume-iframe {
+    height: calc(100vh - 60px);
+  }
+  
+  .loading-spinner {
+    padding: 0.5rem;
+  }
+  
+  .loading-spinner p {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
   }
 }
 </style>

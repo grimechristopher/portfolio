@@ -29,7 +29,7 @@ useHead(() => {
       { name: 'description', content: seo.SiteDescription },
       { name: 'keywords', content: seo.DefaultKeywords },
       { name: 'author', content: seo.AuthorName },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no' },
       { charset: 'utf-8' },
     ],
     htmlAttrs: {

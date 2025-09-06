@@ -95,6 +95,7 @@ const handleNavigation = () => {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
 }
 
 .resume-header {
@@ -103,7 +104,7 @@ const handleNavigation = () => {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -114,6 +115,8 @@ const handleNavigation = () => {
   align-items: center;
   padding: 1rem 2rem;
   max-width: 100%;
+  height: 80px;
+  box-sizing: border-box;
 }
 
 .nav-links {
@@ -133,6 +136,7 @@ const handleNavigation = () => {
   border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
   font-family: inherit;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -149,21 +153,60 @@ const handleNavigation = () => {
 .resume-main {
   flex: 1;
   overflow: hidden;
+  position: relative;
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .resume-nav {
     padding: 1rem;
+    height: 70px;
   }
   
   .nav-link {
     font-size: 14px;
-    padding: 6px 12px;
+    padding: 8px 12px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .nav-title {
     font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .resume-nav {
+    padding: 0.75rem;
+    height: 70px;
+  }
+  
+  .nav-link {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+  
+  .nav-title {
+    font-size: 15px;
+  }
+}
+
+/* Landscape orientation fixes for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .resume-nav {
+    height: 60px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .nav-link {
+    padding: 4px 8px;
+    font-size: 13px;
+  }
+  
+  .nav-title {
+    font-size: 14px;
   }
 }
 </style>
